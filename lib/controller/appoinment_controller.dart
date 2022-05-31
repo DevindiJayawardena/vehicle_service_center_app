@@ -66,6 +66,7 @@ class AppointmentController extends GetxController {
               timeSlotDecodedData['success']) {
             Get.to(() => AddAppointmentScreen(
                   isEdit: isEdit,
+                  appointmentId: appointmentId,
                 ));
           } else {
             CustomSnackBar.buildSnackBar(
@@ -117,6 +118,10 @@ class AppointmentController extends GetxController {
             print('success');
             print(decodedData);
             Get.off(() => HomeScreen());
+            CustomSnackBar.buildSnackBar(
+                title: "Alert",
+                message: decodedData['message'],
+                bgColor: AppColors.appColorBlack);
           } else {
             CustomSnackBar.buildSnackBar(
                 title: "Alert",
@@ -144,7 +149,7 @@ class AppointmentController extends GetxController {
 
   void updateAppointment(String token, String appointmentId, String vehicleId,
       String upgradeTypeId, String timeSlotId, String date) async {
-    print("------->fjdkjfk");
+    print("------->appointment id");
     print(appointmentId);
     try {
       if (networkController.connectionStatus.value != -1) {
@@ -165,6 +170,10 @@ class AppointmentController extends GetxController {
             print('success');
             print(decodedData);
             Get.off(() => HomeScreen());
+            CustomSnackBar.buildSnackBar(
+                title: "Alert",
+                message: decodedData['message'],
+                bgColor: AppColors.appColorBlack);
           } else {
             CustomSnackBar.buildSnackBar(
                 title: "Alert",

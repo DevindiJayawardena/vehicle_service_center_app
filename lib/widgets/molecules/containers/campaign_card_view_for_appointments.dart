@@ -36,6 +36,7 @@ class CampaignCardViewForAppointments extends StatelessWidget {
     final userBox = GetStorage('userBox');
     var token = userBox.read('token');
     var id = userBox.read('id');
+
     return SingleChildScrollView(
       child: Card(
           elevation: 9,
@@ -119,6 +120,8 @@ class CampaignCardViewForAppointments extends StatelessWidget {
                                           message:
                                               "Your Appointment has been confirmed & can't Change");
                                     } else {
+                                      print("appointment id");
+                                      print(appointmentId);
                                       appointmentController.addAppointment(
                                           token: token,
                                           id: id,
