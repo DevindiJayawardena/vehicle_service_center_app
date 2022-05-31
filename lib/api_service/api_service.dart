@@ -54,4 +54,81 @@ class ApiService {
     var url = Uri.https(API_BASE_URL, "/customer/login");
     return await http.post(url, body: data, headers: header);
   }
+
+  Future<http.Response> getCustomerVehiclesApi(
+      String token, String userId) async {
+    var header = {"Accept": "application/json", "Authorization": token};
+    var url =
+        Uri.https(API_BASE_URL, "/vehicle/getVehiclesByCustomerId/$userId");
+    var response = await http.get(url, headers: header);
+    //Vehicles vehicles = Vehicles.fromJson(jsonDecode(response.body));
+    //print(response.body);
+    return response;
+  }
+
+  Future<http.Response> getUpgradeTypesApi(String token) async {
+    var header = {"Accept": "application/json", "Authorization": token};
+    var url = Uri.https(API_BASE_URL, "/upgrade_type/getAllUpgradeTypes");
+    var response = await http.get(url, headers: header);
+    /*UpgradeTypes upgradeTypes =
+        UpgradeTypes.fromJson(jsonDecode(response.body));
+    print(response.body);*/
+    return response;
+  }
+
+  Future<http.Response> getTimeSlotApi(String token) async {
+    var header = {"Accept": "application/json", "Authorization": token};
+    var url = Uri.https(API_BASE_URL, "/time_slot/getAllTimeSlots");
+    var response = await http.get(url, headers: header);
+    return response;
+  }
+
+  Future<http.Response> createAppointmentApi(
+      {required String token,
+      required String vehicleId,
+      required String upgradeTypeId,
+      required String timeSlotId,
+      required String date}) async {
+    var header = {"Accept": "application/json", "Authorization": token};
+
+    var data = {
+      "date": date,
+      "time_slot_id": timeSlotId,
+      "vehicle_id": vehicleId,
+      "upgrade_type_id": upgradeTypeId
+    };
+
+    var url = Uri.https(API_BASE_URL, "/appointment/create");
+    var response = await http.post(url, headers: header, body: data);
+    return response;
+  }
+
+  Future<http.Response> updateAppointmentApi(
+      {required String token,
+      required String appointmentId,
+      required String vehicleId,
+      required String upgradeTypeId,
+      required String timeSlotId,
+      required String date}) async {
+    var header = {"Accept": "application/json", "Authorization": token};
+
+    var data = {
+      "date": date,
+      "time_slot_id": timeSlotId,
+      "vehicle_id": vehicleId,
+      "upgrade_type_id": upgradeTypeId
+    };
+
+    var url = Uri.https(API_BASE_URL, "/appointment/update/$appointmentId");
+    var response = await http.put(url, headers: header, body: data);
+    return response;
+  }
+
+  Future<http.Response> getAllAppointmentApi({required String token}) async {
+    var header = {"Accept": "application/json", "Authorization": token};
+
+    var url = Uri.https(API_BASE_URL, "/appointment/getAllAppointments");
+    var response = await http.get(url, headers: header);
+    return response;
+  }
 }

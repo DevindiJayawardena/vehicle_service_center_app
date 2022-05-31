@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:vehicle_service_center_app/controller/appoinment_controller.dart';
 
 import '../../../const/constants.dart';
 import '../../molecules/containers/campaign_card_view_for_appointments.dart';
 import '../../molecules/containers/drawer.dart';
 
 class ViewAppointmentTemplate extends StatelessWidget {
-  const ViewAppointmentTemplate({Key? key}) : super(key: key);
+  AppointmentController appointmentController =
+      Get.find<AppointmentController>();
+  ViewAppointmentTemplate({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,11 +28,34 @@ class ViewAppointmentTemplate extends StatelessWidget {
         //     )),
         // actions: [],
       ),
-
       drawer: DrawerWidget(),
-
       body: SingleChildScrollView(
-        child: Column(
+        child: SizedBox(
+          height: 800,
+          child: ListView.builder(
+              itemCount: appointmentController.appointment.data?.length,
+              itemBuilder: (_, index) {
+                return Container(
+                  padding: const EdgeInsets.all(8.0),
+                  child: CampaignCardViewForAppointments(
+                    vehicleType: appointmentController
+                        .appointment.data![index].vehicleNumber
+                        .toString(),
+                    imgUrl: "assets/images/appointment_two.png",
+                    appointmentId: appointmentController
+                        .appointment.data![index].id
+                        .toString(),
+                    serviceType: appointmentController
+                        .appointment.data![index].upgradeTypeName!,
+                    //distance: "85000km",
+                    time: appointmentController.appointment.data![index].date!,
+                    status:
+                        appointmentController.appointment.data![index].status!,
+                  ),
+                );
+              }),
+        ),
+        /*Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
 
@@ -69,11 +96,8 @@ class ViewAppointmentTemplate extends StatelessWidget {
 
 
           ],
-        ),
+        ),*/
       ),
     );
   }
-
 }
-
-

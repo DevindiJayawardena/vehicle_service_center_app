@@ -1,24 +1,33 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:time_range/time_range.dart';
+import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:intl/intl.dart';
+import 'package:vehicle_service_center_app/controller/appoinment_controller.dart';
 
 import '../../../const/constants.dart';
 import '../../molecules/containers/app_dropdown_menu.dart';
 import '../../molecules/containers/drawer.dart';
 
 class AddAppointmentTemplate extends StatefulWidget {
-  const AddAppointmentTemplate({Key? key}) : super(key: key);
+  bool isEdit;
+  String? appointmentId;
+  AddAppointmentTemplate({Key? key, required this.isEdit, this.appointmentId})
+      : super(key: key);
 
   @override
   _AddAppointmentTemplateState createState() => _AddAppointmentTemplateState();
 }
 
-
 class _AddAppointmentTemplateState extends State<AddAppointmentTemplate> {
   String selectedVehicle = "";
   String selectedServiceType = "";
-
+  String selectedTimeSlot = "";
+  AppointmentController appointmentController =
+      Get.find<AppointmentController>();
   DateTime currentDate = DateTime.now();
+  String selectedTime = "";
+
+  final userBox = GetStorage('userBox');
 
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? pickedDate = await showDatePicker(
@@ -30,35 +39,50 @@ class _AddAppointmentTemplateState extends State<AddAppointmentTemplate> {
       setState(() {
         currentDate = pickedDate;
       });
+    final df = new DateFormat('yyyy-MM-dd');
+    selectedTime = df.format(currentDate);
   }
 
-
-
-  final _defaultTimeRange = TimeRangeResult(
+  /*final _defaultTimeRange = TimeRangeResult(
     TimeOfDay(hour: 8, minute: 00),
     TimeOfDay(hour: 9, minute: 00),
   );
 
-  TimeRangeResult? _timeRange;
+  TimeRangeResult? _timeRange;*/
 
   @override
   void initState() {
     super.initState();
-    _timeRange = _defaultTimeRange;
+    //_timeRange = _defaultTimeRange;
   }
-
-
 
   @override
   Widget build(BuildContext context) {
+    var token = userBox.read('token');
+    var userId = userBox.read('id');
+
+    List<dynamic> vehicleMap = [];
+    appointmentController.vehicles.data?.forEach((element) {
+      vehicleMap.add({'id': element.id, 'label': element.vehicleNumber});
+    });
+
+    List<dynamic> upgradeTypeMap = [];
+    appointmentController.upgradeTypes.data?.forEach((element) {
+      upgradeTypeMap.add({'id': element.id, 'label': element.name});
+    });
+
+    List<dynamic> timeSlotMap = [];
+    appointmentController.timeSlot.data?.forEach((element) {
+      timeSlotMap.add(
+          {'id': element.id, 'label': '${element.start} - ${element.end}'});
+    });
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Add New Appointment"),
         backgroundColor: Constants.appColorAmber,
       ),
-
       drawer: DrawerWidget(),
-
       body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(vertical: 25),
         child: Column(
@@ -68,7 +92,7 @@ class _AddAppointmentTemplateState extends State<AddAppointmentTemplate> {
               width: 360,
               padding: EdgeInsets.symmetric(horizontal: 50),
               child: AppDropDownMenu(
-                locationList: Constants().vehicleList,
+                locationList: vehicleMap,
                 label: "Vehicle",
                 hintText: "Select Your Vehicle",
                 onSelected: (vehicle) {
@@ -84,7 +108,7 @@ class _AddAppointmentTemplateState extends State<AddAppointmentTemplate> {
               width: 360,
               padding: EdgeInsets.symmetric(horizontal: 50),
               child: AppDropDownMenu(
-                locationList: Constants().serviceTypesList,
+                locationList: upgradeTypeMap,
                 label: "Service Type",
                 hintText: "Select",
                 onSelected: (serviceType) {
@@ -94,7 +118,9 @@ class _AddAppointmentTemplateState extends State<AddAppointmentTemplate> {
               ),
             ),
 
-            SizedBox(height: 20,),
+            SizedBox(
+              height: 20,
+            ),
 
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -112,7 +138,9 @@ class _AddAppointmentTemplateState extends State<AddAppointmentTemplate> {
               ],
             ),
 
-            SizedBox(height: 6,),
+            SizedBox(
+              height: 6,
+            ),
 
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -121,7 +149,8 @@ class _AddAppointmentTemplateState extends State<AddAppointmentTemplate> {
                   onPressed: () => _selectDate(context),
                   child: Text('Select date'),
                 ),
-                Text("                           "),        /* ---------methana display krnna date eka------- */
+                Text(
+                    "${currentDate.year} - ${currentDate.month + 1} - ${currentDate.day}"), /* ---------methana display krnna date eka------- */
               ],
             ),
 
@@ -140,27 +169,25 @@ class _AddAppointmentTemplateState extends State<AddAppointmentTemplate> {
             //   ),
             // ),
 
-            SizedBox(height: 20,),
-
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Text(
-                  "Pick a Time",
-                  style: TextStyle(
-                    color: Constants.appColorAmberDark,
-                    fontSize: 16,
-                  ),
-                ),
-                Text(
-                  "                                   ",
-                ),
-              ],
+            SizedBox(
+              height: 20,
             ),
 
             //SizedBox(height: 6,),
+            Container(
+              width: 360,
+              padding: EdgeInsets.symmetric(horizontal: 50),
+              child: AppDropDownMenu(
+                locationList: timeSlotMap,
+                label: "Time Slot",
+                hintText: "Select",
+                onSelected: (serviceType) {
+                  selectedTimeSlot = serviceType;
+                },
+              ),
+            ),
 
-            Padding(
+            /*Padding(
               padding: const EdgeInsets.all(15.0),
               child: TimeRange(
                 fromTitle: Text(
@@ -205,15 +232,16 @@ class _AddAppointmentTemplateState extends State<AddAppointmentTemplate> {
 
             if (_timeRange != null)
               Padding(
-                padding: const EdgeInsets.only(top: 8.0,),
+                padding: const EdgeInsets.only(
+                  top: 8.0,
+                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
                       'Selected Range: ${_timeRange!.start.format(context)} - ${_timeRange!.end.format(context)}',
                       style: TextStyle(
-                          fontSize: 16,
-                          color: Constants.appColorBlack),
+                          fontSize: 16, color: Constants.appColorBlack),
                     ),
                     SizedBox(height: 15),
                     MaterialButton(
@@ -224,8 +252,7 @@ class _AddAppointmentTemplateState extends State<AddAppointmentTemplate> {
                     )
                   ],
                 ),
-              ),
-
+              ),*/
 
             // Container(
             //   width: 360,
@@ -241,50 +268,66 @@ class _AddAppointmentTemplateState extends State<AddAppointmentTemplate> {
             //   ),
             // ),
 
-            SizedBox(height: 20,),
+            SizedBox(
+              height: 20,
+            ),
 
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.back();
+                  },
                   style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(Colors.redAccent),
+                    backgroundColor:
+                        MaterialStateProperty.all(Colors.redAccent),
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                         RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(6.0),
-                          //side: BorderSide(color: Constants.appColorAmberDark),
-                        )
-                    ),
+                      borderRadius: BorderRadius.circular(6.0),
+                      //side: BorderSide(color: Constants.appColorAmberDark),
+                    )),
                   ),
                   child: Text(
                     "Cancel",
                   ),
                 ),
-
                 SizedBox(
                   width: 40,
                 ),
-
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    if (widget.isEdit) {
+                      appointmentController.updateAppointment(
+                          token,
+                          widget.appointmentId!,
+                          selectedVehicle,
+                          selectedServiceType,
+                          selectedTimeSlot,
+                          selectedTime);
+                    } else {
+                      appointmentController.createAppointment(
+                          token,
+                          selectedVehicle,
+                          selectedServiceType,
+                          selectedTimeSlot,
+                          selectedTime);
+                    }
+                  },
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(Colors.green),
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                         RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(6.0),
-                            //side: BorderSide(color: Constants.appColorAmberDark),
-                        )
-                    ),
+                      borderRadius: BorderRadius.circular(6.0),
+                      //side: BorderSide(color: Constants.appColorAmberDark),
+                    )),
                   ),
                   child: Text(
-                    "Confirm",
+                    widget.isEdit ? "Update" : "Confirm",
                   ),
                 ),
-
               ],
             ),
-
           ],
         ),
       ),

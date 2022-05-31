@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:snippet_coder_utils/FormHelper.dart';
 
 import '../../../const/constants.dart';
@@ -14,15 +13,14 @@ class AppDropDownMenu extends StatelessWidget {
   String? locationName;
   final Function onSelected;
 
-  AppDropDownMenu({
-    Key? key,
-    required this.locationList,
-    required this.label,
-    this.labelColor = Constants.appColorAmberDark,
-    required this.hintText,
-    required this.onSelected
-
-  }) : super(key: key);
+  AppDropDownMenu(
+      {Key? key,
+      required this.locationList,
+      required this.label,
+      this.labelColor = Constants.appColorAmberDark,
+      required this.hintText,
+      required this.onSelected})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +32,9 @@ class AppDropDownMenu extends StatelessWidget {
           widgetSize: WidgetSize.large,
           textColor: labelColor,
         ),
-        SizedBox(height: 6,),
+        SizedBox(
+          height: 6,
+        ),
         Container(
           width: MediaQuery.of(context).size.width * 0.93,
           decoration: BoxDecoration(
@@ -47,19 +47,19 @@ class AppDropDownMenu extends StatelessWidget {
             hintText,
             this.locationName,
             this.locationList,
-                (onChangedValue) {
+            (onChangedValue) {
               this.locationName = onChangedValue;
+              print(onChangedValue);
               onSelected(locationName);
-
             },
-                (onValidateValue) {
+            (onValidateValue) {
               if (onValidateValue == null) {
                 return "please Select a Location";
               }
               return null;
             },
             borderRadius: 0,
-            optionValue: "label",
+            optionValue: "id",
             optionLabel: "label",
             borderColor: Colors.transparent,
           ),
@@ -68,4 +68,3 @@ class AppDropDownMenu extends StatelessWidget {
     );
   }
 }
-
