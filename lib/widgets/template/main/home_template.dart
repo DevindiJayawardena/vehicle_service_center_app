@@ -7,6 +7,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:vehicle_service_center_app/controller/appoinment_controller.dart';
 
 import '../../../const/constants.dart';
+import '../../../controller/service_history_controller.dart';
 import '../../../screens/main/sell_your_vehicle_screen.dart';
 import '../../../screens/main/selling_vehicle_details_screen.dart';
 import '../../../screens/main/view_service_history_screen.dart';
@@ -25,6 +26,9 @@ class HomeTemplate extends StatefulWidget {
 class _HomeTemplateState extends State<HomeTemplate> {
   AppointmentController appointmentController =
       Get.put(AppointmentController(), permanent: true);
+
+  ServiceHistoryController serviceHistoryController =
+      Get.put(ServiceHistoryController());
   @override
   Widget build(BuildContext context) {
     final userBox = GetStorage('userBox');
@@ -307,13 +311,8 @@ class _HomeTemplateState extends State<HomeTemplate> {
                                               ),
                                             ),
                                             onPressed: () {
-                                              Navigator.of(context)
-                                                  .pushReplacement(
-                                                      MaterialPageRoute(
-                                                builder: (BuildContext
-                                                        context) =>
-                                                    ViewServiceHistoryScreen(),
-                                              ));
+                                              Get.to(() =>
+                                                  ViewServiceHistoryScreen());
                                             },
                                           ),
                                         ],

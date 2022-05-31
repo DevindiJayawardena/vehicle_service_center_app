@@ -131,7 +131,9 @@ class CampaignCardViewForAppointments extends StatelessWidget {
                                   },
                                   child: Text('EDIT'),
                                   style: ElevatedButton.styleFrom(
-                                    primary: Colors.green,
+                                    primary: status == 'Arrived'
+                                        ? Colors.grey
+                                        : Colors.green,
                                   ),
                                 ),
                                 SizedBox(
@@ -145,13 +147,15 @@ class CampaignCardViewForAppointments extends StatelessWidget {
                                           message:
                                               "Your Appointment has been confirmed & can't Delete");
                                     } else {
-                                      CustomSnackBar.buildSnackBar(
-                                          title: "Alert", message: "delete");
+                                      appointmentController.deleteAppointment(
+                                          token, appointmentId);
                                     }
                                   },
                                   child: Text('DELETE'),
                                   style: ElevatedButton.styleFrom(
-                                    primary: Colors.red,
+                                    primary: status == 'Arrived'
+                                        ? Colors.grey
+                                        : Colors.red,
                                   ),
                                 ),
                               ],

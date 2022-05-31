@@ -131,4 +131,23 @@ class ApiService {
     var response = await http.get(url, headers: header);
     return response;
   }
+
+  Future<http.Response> deleteAppointmentApi(
+      {required String token, required String appointmentId}) async {
+    var header = {"Accept": "application/json", "Authorization": token};
+
+    var url = Uri.https(API_BASE_URL, "/appointment/delete/$appointmentId");
+    var response = await http.delete(url, headers: header);
+    return response;
+  }
+
+  Future<http.Response> getServiceHistoryApi(
+      {required String token, required String vehicleId}) async {
+    var header = {"Accept": "application/json", "Authorization": token};
+
+    var url =
+        Uri.https(API_BASE_URL, "/service/getHistoryByVehicleId/$vehicleId");
+    var response = await http.get(url, headers: header);
+    return response;
+  }
 }
