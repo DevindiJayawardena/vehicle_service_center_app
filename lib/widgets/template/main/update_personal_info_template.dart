@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:get/get.dart';
+import 'package:vehicle_service_center_app/const/custom_snack_bar.dart';
+import 'package:vehicle_service_center_app/controller/profile_controller.dart';
 
 import '../../../const/constants.dart';
 import '../../../const/widget_size.dart';
@@ -8,7 +9,16 @@ import '../../molecules/buttons/filled_rounded_button.dart';
 import '../../molecules/containers/drawer.dart';
 
 class UpdatePersonalInfoTemplate extends StatelessWidget {
-  const UpdatePersonalInfoTemplate({Key? key}) : super(key: key);
+  UpdatePersonalInfoTemplate({Key? key}) : super(key: key);
+
+  ProfileController profileController = Get.put(ProfileController());
+  TextEditingController fNameController = TextEditingController();
+  TextEditingController lNameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController phnController = TextEditingController();
+  TextEditingController nicController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController rePasswordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -17,19 +27,17 @@ class UpdatePersonalInfoTemplate extends StatelessWidget {
         title: Text("Update Profile Info"),
         backgroundColor: Constants.appColorAmber,
       ),
-
       drawer: DrawerWidget(),
-
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
             SizedBox(
               height: 5,
             ),
-
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: TextField(
+                controller: fNameController,
                 keyboardType: TextInputType.text,
                 decoration: InputDecoration(
                   fillColor: Colors.white,
@@ -42,10 +50,10 @@ class UpdatePersonalInfoTemplate extends StatelessWidget {
                 ),
               ),
             ),
-
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: TextField(
+                controller: lNameController,
                 keyboardType: TextInputType.text,
                 decoration: InputDecoration(
                   fillColor: Colors.white,
@@ -58,10 +66,10 @@ class UpdatePersonalInfoTemplate extends StatelessWidget {
                 ),
               ),
             ),
-
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: TextField(
+                controller: emailController,
                 keyboardType: TextInputType.emailAddress,
                 decoration: InputDecoration(
                   fillColor: Colors.white,
@@ -74,10 +82,10 @@ class UpdatePersonalInfoTemplate extends StatelessWidget {
                 ),
               ),
             ),
-
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: TextField(
+                controller: phnController,
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                   fillColor: Colors.white,
@@ -90,11 +98,11 @@ class UpdatePersonalInfoTemplate extends StatelessWidget {
                 ),
               ),
             ),
-
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: TextField(
-                keyboardType: TextInputType.number,
+                controller: nicController,
+                keyboardType: TextInputType.text,
                 decoration: InputDecoration(
                   fillColor: Colors.white,
                   filled: true,
@@ -106,10 +114,11 @@ class UpdatePersonalInfoTemplate extends StatelessWidget {
                 ),
               ),
             ),
-
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: TextField(
+                controller: passwordController,
+                obscureText: true,
                 keyboardType: TextInputType.visiblePassword,
                 decoration: InputDecoration(
                   fillColor: Colors.white,
@@ -122,10 +131,11 @@ class UpdatePersonalInfoTemplate extends StatelessWidget {
                 ),
               ),
             ),
-
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: TextField(
+                controller: rePasswordController,
+                obscureText: true,
                 keyboardType: TextInputType.visiblePassword,
                 decoration: InputDecoration(
                   fillColor: Colors.white,
@@ -138,46 +148,44 @@ class UpdatePersonalInfoTemplate extends StatelessWidget {
                 ),
               ),
             ),
-
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: FilledRoundedButton(
-                  text: "Cancel",
-                  color: Constants.appColorRed,
-                  widgetSize: WidgetSize.maxSize,
-                  clickEvent: (){
-                    //Get.toNamed(Routes.AD_PACKAGE);
-                  }
-              ),
+            SizedBox(
+              height: 10,
             ),
-
-            SizedBox(height: 10,),
-
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: FilledRoundedButton(
                   text: "Update",
                   color: Constants.appColorAmberDark,
                   widgetSize: WidgetSize.maxSize,
-                  clickEvent: (){
-                    // print(selectedLocation);
-                    // print(brandDetails);
-                    // print(selectedModelYear);
-                    // print(selectedCondition);
-                    // print(imageList);
-                    // print(_descriptionController.text);
-
-                    //Get.toNamed(Routes.AD_PACKAGE);
-                  }
-              ),
+                  clickEvent: () {
+                    print(fNameController.text);
+                    print(lNameController.text);
+                    print(emailController.text);
+                    print(phnController.text);
+                    print(nicController.text);
+                    print(passwordController.text);
+                    print(rePasswordController.text);
+                    if (passwordController.text == rePasswordController.text) {
+                      profileController.updateProfileDetails(
+                          fName: fNameController.text,
+                          lName: lNameController.text,
+                          email: emailController.text,
+                          phnNo: phnController.text,
+                          nic: nicController.text,
+                          password: passwordController.text);
+                    } else {
+                      CustomSnackBar.buildSnackBar(
+                          title: "alert",
+                          message: "Please check your password");
+                    }
+                  }),
             ),
-
-            SizedBox(height: 20,),
-
+            SizedBox(
+              height: 20,
+            ),
           ],
         ),
       ),
     );
   }
 }
-

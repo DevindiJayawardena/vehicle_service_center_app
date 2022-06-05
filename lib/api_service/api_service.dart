@@ -150,4 +150,49 @@ class ApiService {
     var response = await http.get(url, headers: header);
     return response;
   }
+
+  Future<http.Response> updateCustomerProfileApi(
+      {required String token,
+      required String customerId,
+      required String fName,
+      required String lName,
+      required String email,
+      required String phnNo,
+      required String nic,
+      required String password}) async {
+    var header = {"Accept": "application/json", "Authorization": token};
+    var data = {
+      "first_name": fName,
+      "last_name": lName,
+      "password": password,
+      "contact_number": phnNo,
+      "nic_number": nic,
+    };
+    var url = Uri.https(API_BASE_URL, "/customer/update/$customerId");
+    var response = await http.put(url, headers: header, body: data);
+    return response;
+  }
+
+  Future<http.Response> viewCustomerVehiclesApi(
+      {required String token, required String id}) async {
+    var header = {"Accept": "application/json", "Authorization": token};
+
+    var url = Uri.https(API_BASE_URL, "/vehicle/getVehiclesByCustomerId/$id");
+    var response = await http.get(url, headers: header);
+    return response;
+  }
+
+  Future<http.Response> addNewVehicle(
+      {required String token,
+      required String vehicleType,
+      required String vehicleNo}) async {
+    var header = {"Accept": "application/json", "Authorization": token};
+
+    var data = {"vehicle_type": vehicleType, "vehicle_number": vehicleNo};
+
+    var url = Uri.https(API_BASE_URL, "/vehicle/create/");
+    var response = await http.post(url, headers: header, body: data);
+
+    return response;
+  }
 }
