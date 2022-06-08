@@ -10,7 +10,6 @@ import '../../../const/constants.dart';
 import '../../../controller/service_history_controller.dart';
 import '../../../screens/main/sell_your_vehicle_screen.dart';
 import '../../../screens/main/selling_vehicle_details_screen.dart';
-import '../../../screens/main/view_service_history_screen.dart';
 import '../../molecules/containers/campaign_card_view.dart';
 import '../../molecules/containers/drawer.dart';
 
@@ -26,7 +25,6 @@ class HomeTemplate extends StatefulWidget {
 class _HomeTemplateState extends State<HomeTemplate> {
   AppointmentController appointmentController =
       Get.put(AppointmentController(), permanent: true);
-
   ServiceHistoryController serviceHistoryController =
       Get.put(ServiceHistoryController());
   @override
@@ -311,8 +309,8 @@ class _HomeTemplateState extends State<HomeTemplate> {
                                               ),
                                             ),
                                             onPressed: () {
-                                              Get.to(() =>
-                                                  ViewServiceHistoryScreen());
+                                              serviceHistoryController
+                                                  .getInitHistory();
                                             },
                                           ),
                                         ],
