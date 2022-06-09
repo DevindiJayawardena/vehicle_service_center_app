@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:vehicle_service_center_app/controller/appoinment_controller.dart';
+import 'package:vehicle_service_center_app/controller/vehicle_sale_controller.dart';
 
 import '../../../const/constants.dart';
 import '../../../controller/service_history_controller.dart';
-import '../../../screens/main/sell_your_vehicle_screen.dart';
 import '../../../screens/main/selling_vehicle_details_screen.dart';
 import '../../molecules/containers/campaign_card_view.dart';
 import '../../molecules/containers/drawer.dart';
@@ -27,6 +27,10 @@ class _HomeTemplateState extends State<HomeTemplate> {
       Get.put(AppointmentController(), permanent: true);
   ServiceHistoryController serviceHistoryController =
       Get.put(ServiceHistoryController());
+
+  VehicleSaleController vehicleSaleController =
+      Get.put(VehicleSaleController());
+
   @override
   Widget build(BuildContext context) {
     final userBox = GetStorage('userBox');
@@ -346,13 +350,14 @@ class _HomeTemplateState extends State<HomeTemplate> {
                                     ),
                                   ),
                                   onPressed: () {
-                                    print(
-                                        "Button 'Sell your vehicle' clicked!");
-                                    Navigator.of(context)
-                                        .pushReplacement(MaterialPageRoute(
+                                    vehicleSaleController
+                                        .viewCustomerVehicleForSale();
+
+                                    /*Navigator.of(context)
+                                        .push(MaterialPageRoute(
                                       builder: (BuildContext context) =>
                                           SellYourVehicleScreen(),
-                                    ));
+                                    ));*/
                                   },
                                 ),
                               ],

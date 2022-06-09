@@ -1,16 +1,11 @@
 import 'dart:ui';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:internet_connection_checker/internet_connection_checker.dart';
-import 'package:flutter/material.dart';
 
-import 'package:permission_handler/permission_handler.dart';
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-
-class Constants{
-
+class Constants {
   static const appColorBrownRed = Color(0xffD92027);
   static const appColorRed = Color(0xffd7454a);
   static const appColorBrownRedLight = Color(0xFFD92027);
@@ -26,7 +21,8 @@ class Constants{
   static const appColorGray = Color(0xffc4c4c4);
   static const appColorGrayTwo = Color(0xffa09f9f);
 
-  static const MaterialColor appColorbrownRedSwatch = MaterialColor(0xffD92027, <int, Color>{
+  static const MaterialColor appColorbrownRedSwatch =
+      MaterialColor(0xffD92027, <int, Color>{
     50: Color(0xffD92027),
     100: Color(0xffD92027),
     200: Color(0xffD92027),
@@ -38,7 +34,6 @@ class Constants{
     800: Color(0xffD92027),
     900: Color(0xffD92027),
   });
-
 
   static bool isLogged = true;
 
@@ -108,7 +103,6 @@ class Constants{
   //   ),
   // ];
 
-
   //<-------------DROPDOWN DATA LISTS----------------->
   List<dynamic> vehicleList = [
     {"id": 1, "label": "KJ-4923"},
@@ -118,20 +112,19 @@ class Constants{
   ];
 
   List<dynamic> conditionTypeList = [
-    {"id": 1, "label": "Used"},
-    {"id": 2, "label": "Brand New"},
+    {"id": "Used", "label": "Used"},
+    {"id": "Brand New", "label": "Brand New"},
   ];
 
   List<dynamic> transmissionTypeList = [
-    {"id": 1, "label": "Automation"},
-    {"id": 2, "label": "Manual"},
+    {"id": "Automation", "label": "Automation"},
+    {"id": "Manual", "label": "Manual"},
   ];
 
   List<dynamic> fuelTypeList = [
-    {"id": 1, "label": "Petrol"},
-    {"id": 2, "label": "Diesel"},
+    {"id": "Petrol", "label": "Petrol"},
+    {"id": "Diesel", "label": "Diesel"},
   ];
-
 
   List<dynamic> vehicleTypeList = [
     {"id": 1, "label": "Car"},
@@ -141,14 +134,12 @@ class Constants{
     {"id": 4, "label": "Bus"},
   ];
 
-
   List<dynamic> serviceTypesList = [
     {"id": 1, "label": "Interior Cleaning"},
     {"id": 2, "label": "Oil Changing"},
     {"id": 3, "label": "Waxing"},
     {"id": 4, "label": "Clutch Balancing"},
   ];
-
 
   //LOCATIONS
   List<dynamic> locationList = [
@@ -191,9 +182,6 @@ class Constants{
     {"id": 2, "label": "Used"},
   ];
 
-
-
-
   //<-------------SHARED PREFERENCES----------------->
   static const String IS_APP_INSTALLED = "isAppInstalled";
   static bool isInstalled = false;
@@ -205,21 +193,18 @@ class Constants{
     final SharedPreferences prefs = await _mSF;
 
     prefs.setBool(key, value);
-
   }
 
   Future<void> getAppInstalledDataInSF(String key) async {
     final SharedPreferences prefs = await _mSF;
 
-    if(prefs.containsKey(key)){
+    if (prefs.containsKey(key)) {
       //return true;
       isInstalled = true;
-    }else{
+    } else {
       isInstalled = false;
     }
     //return false;
-
-
   }
 
   /*//<-----------------------CHECK INTERNET CONNECTION------------------>
@@ -251,8 +236,7 @@ class Constants{
         gravity: ToastGravity.BOTTOM,
         timeInSecForIosWeb: 5,
         backgroundColor: appColorBrownRed.withOpacity(0.8),
-        textColor: appColorWhite
-    );
+        textColor: appColorWhite);
   }
 
   //<-------------CHECKING CAMERA PERMISSION----------------->
@@ -317,13 +301,13 @@ class Constants{
   //
   // }
 
-  static Future openLink({required String url,}) => _launchUrl(url);
+  static Future openLink({
+    required String url,
+  }) =>
+      _launchUrl(url);
   static Future _launchUrl(String url) async {
     print(url);
 
     await launch(url);
-
   }
-
-
 }

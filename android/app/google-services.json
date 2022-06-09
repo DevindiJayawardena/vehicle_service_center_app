@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "930108433618",
+    "project_id": "vehicle-service-center-a-f7bfe",
+    "storage_bucket": "vehicle-service-center-a-f7bfe.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:930108433618:android:7aa53ee02340db7e82f90b",
+        "android_client_info": {
+          "package_name": "com.example.vehicle_service_center_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "930108433618-n0uco7cp2s0ecp3o5nga5k19v00u594v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC8zU6qFW0g7D0zTeMRc6xz-D8G7EEXiuw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "930108433618-n0uco7cp2s0ecp3o5nga5k19v00u594v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

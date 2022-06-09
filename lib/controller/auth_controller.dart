@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:vehicle_service_center_app/api_service/api_service.dart';
@@ -33,6 +34,7 @@ class AuthController extends GetxController {
     try {
       if (networkController.connectionStatus.value != -1) {
         CustomDialogBox.buildDialogBox();
+
         var response = await ApiService().customerLoginApi(email, password);
         Get.back();
 
@@ -165,17 +167,18 @@ class AuthController extends GetxController {
 
     try {
       if (networkController.connectionStatus.value != -1) {
+        String? fcmToken = await FirebaseMessaging.instance.getToken();
         CustomDialogBox.buildDialogBox();
         var response = await ApiService().customerRegisterApi(
-          token: token,
-          userId: id,
-          fName: fName,
-          lName: lName,
-          nic: nic,
-          vehicleType: vehicleType,
-          vehicleNo: vehicleNo,
-          cNo: cNo,
-        );
+            token: token,
+            userId: id,
+            fName: fName,
+            lName: lName,
+            nic: nic,
+            vehicleType: vehicleType,
+            vehicleNo: vehicleNo,
+            cNo: cNo,
+            fcmToken: fcmToken);
         Get.back();
         var decodedResponse = jsonDecode(response.body);
         print(decodedResponse);

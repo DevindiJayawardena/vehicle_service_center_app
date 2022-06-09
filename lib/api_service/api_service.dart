@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:http/http.dart' as http;
 
 class ApiService {
@@ -29,14 +31,18 @@ class ApiService {
       required String cNo,
       required String nic,
       required String vehicleType,
-      required String vehicleNo}) async {
+      required String vehicleNo,
+      String? fcmToken}) async {
+    print(
+        "fcm token ------------------------------------------------->$fcmToken");
     var data = {
       "first_name": fName,
       "last_name": lName,
       "contact_number": cNo,
       "nic_number": nic,
       "vehicle_type": vehicleType,
-      "vehicle_number": vehicleNo
+      "vehicle_number": vehicleNo,
+      "fcm_token": fcmToken
     };
 
     var header = {"Accept": "application/json", "Authorization": token};
@@ -45,10 +51,7 @@ class ApiService {
   }
 
   Future<http.Response> customerLoginApi(String email, String password) async {
-    var data = {
-      "email": email,
-      "password": password,
-    };
+    var data = {"email": email, "password": password};
 
     var header = {"Accept": "application/json"};
     var url = Uri.https(API_BASE_URL, "/customer/login");
@@ -203,6 +206,55 @@ class ApiService {
     var url =
         Uri.https(API_BASE_URL, "/service/getHistoryByVehicleId/$vehicleNo");
     var response = await http.get(url, headers: header);
+
+    return response;
+  }
+
+  Future<http.Response> addVehicleSales({
+    required String token,
+    required vehicleId,
+    required String type,
+    required String brand,
+    required String model,
+    required String manufacDate,
+    required String condition,
+    required String transmission,
+    required String fuelType,
+    required String engineCapacity,
+    required String Mileage,
+    required String baseImage,
+    required String sellerName,
+    required String city,
+    required String price,
+    required String contactNo,
+  }) async {
+    var header = {"Accept": "application/json", "Authorization": token};
+    List<String> imgList = [];
+    imgList.add(baseImage);
+
+    var json = jsonEncode(imgList);
+
+    print("------------------------>");
+    print(json);
+
+    var data = {
+      "vehicle_id": vehicleId,
+      "brand": brand,
+      "model": model,
+      "manufactured_year": manufacDate,
+      "vehicle_condition": condition,
+      "transmission": transmission,
+      "fuel_type": fuelType,
+      "engine_capacity": engineCapacity,
+      "mileage": Mileage,
+      "seller_name": sellerName,
+      "city": city,
+      "price": price,
+      "contact_number": contactNo,
+      "image_arr": json
+    };
+    var url = Uri.https(API_BASE_URL, "/advertisement/create/");
+    var response = await http.post(url, headers: header, body: data);
 
     return response;
   }
