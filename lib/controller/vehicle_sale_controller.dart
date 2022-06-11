@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 import 'dart:typed_data';
 
@@ -90,6 +91,8 @@ class VehicleSaleController extends GetxController {
           File file = File(imagefiles[0].path);
           Uint8List imageBytes = await file.readAsBytes();
           base64string = base64.encode(imageBytes);
+          print("___________________base 64");
+          log(base64string);
         }
         var response = await ApiService().addVehicleSales(
             token: token,

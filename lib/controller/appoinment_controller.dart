@@ -1,6 +1,10 @@
 import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:vehicle_service_center_app/const/base_64_conver.dart';
+import 'package:vehicle_service_center_app/model/img_Carousel.dart';
 import 'package:vehicle_service_center_app/model/time_slot.dart';
 import 'package:vehicle_service_center_app/model/upgrade_types.dart';
 import 'package:vehicle_service_center_app/model/vehicles.dart';
@@ -22,6 +26,8 @@ class AppointmentController extends GetxController {
   TimeSlot timeSlot = TimeSlot();
   Appointment appointment = Appointment();
   NetworkController networkController = Get.find<NetworkController>();
+  final userBox = GetStorage('userBox');
+  List<Uint8List> imgList = [];
 
   @override
   void onInit() {
@@ -276,6 +282,41 @@ class AppointmentController extends GetxController {
       Get.back();
       CustomSnackBar.buildSnackBar(
           title: "Alert", message: "Something went wrong");
+    }
+  }
+
+  Future getAllCarousels() async {
+    var token = userBox.read('token');
+    if (networkController.connectionStatus.value != -1) {
+      var response = await ApiService().getImageCarousels(token: token);
+      if (response.statusCode == 200) {
+        Map<String, dynamic> decodedData = jsonDecode(response.body);
+
+        if (decodedData['success']) {
+          print("------------------>response image");
+          ImageCarousel imageCarousels = ImageCarousel.fromJson(decodedData);
+          imageCarousels.data?.forEach((element) async {
+            final _byteImage =
+                Base64Convertor.base64StringToBite(element.image!);
+            imgList.add(_byteImage);
+          });
+        } else {
+          CustomSnackBar.buildSnackBar(
+              title: "Alert",
+              message: decodedData['message'],
+              bgColor: AppColors.appColorBlack);
+        }
+      } else {
+        CustomSnackBar.buildSnackBar(
+            title: "Alert",
+            message: "Invalid Response",
+            bgColor: AppColors.appColorBlack);
+      }
+    } else {
+      CustomSnackBar.buildSnackBar(
+          title: "Connection Error",
+          message: "Please Check your Internet",
+          bgColor: AppColors.appColorBlack);
     }
   }
 }
