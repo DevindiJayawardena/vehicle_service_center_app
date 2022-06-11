@@ -234,7 +234,8 @@ class ApiService {
 
     var json = jsonEncode(imgList);
 
-    print("------------------------>");
+    print("------------------------>$token");
+    print("------------------------>$vehicleId");
     print(json);
 
     var data = {
@@ -251,7 +252,7 @@ class ApiService {
       "city": city,
       "price": price,
       "contact_number": contactNo,
-      "image_arr": json
+      "image_arr": jsonEncode(imgList)
     };
     var url = Uri.https(API_BASE_URL, "/advertisement/create/");
     var response = await http.post(url, headers: header, body: data);

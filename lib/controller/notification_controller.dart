@@ -62,7 +62,11 @@ class NotificationController extends GetxController {
   }
 
   void _handleMessage(RemoteMessage message) {
-    if (message.data['type'] == 'poster') {
+    print(
+        "--------------------------------------->total ${message.data['total']}");
+    print(
+        "--------------------------------------->sub total ${message.data['subtotal']}");
+    /*if (message.data['type'] == 'poster') {
       print("---------------------------->${message.data['type']}");
       //Get.to(DashBoardScreen());
     } else if (message.data['type'] == "campaign") {
@@ -71,7 +75,7 @@ class NotificationController extends GetxController {
       //Get.to(RequestScreen());
     } else {
       //Get.to(DashBoardScreen());
-    }
+    }*/
   }
 
   /*void inAppNotification() {

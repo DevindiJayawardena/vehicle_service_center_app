@@ -36,8 +36,7 @@ void main() async {
   await Firebase.initializeApp();
   await GetStorage.init('userBox');
   Get.lazyPut<NetworkController>(() => NetworkController(), fenix: true);
-  Get.lazyPut<NotificationController>(() => NotificationController(),
-      fenix: true);
+  Get.put(NotificationController(), permanent: true);
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
       overlays: [SystemUiOverlay.bottom, SystemUiOverlay.top]);
 
