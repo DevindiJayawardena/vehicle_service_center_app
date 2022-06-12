@@ -145,4 +145,51 @@ class VehicleSaleController extends GetxController {
           title: "Alert", message: "Something went wrong");
     }
   }
+
+  void addRate({
+    required String rate,
+  }) async {
+    var token = userBox.read('token');
+
+    try {
+      if (networkController.connectionStatus.value != -1) {
+        CustomDialogBox.buildDialogBox();
+
+        var response = await ApiService().addRate(token: token, rate: rate);
+        Get.back();
+        print(response.body);
+        if (response.statusCode == 200) {
+          Map<String, dynamic> decodedData = jsonDecode(response.body);
+
+          if (decodedData['success']) {
+            CustomSnackBar.buildSnackBar(
+                title: "Alert",
+                message: decodedData['message'],
+                bgColor: AppColors.appColorBlack);
+          } else {
+            CustomSnackBar.buildSnackBar(
+                title: "Alert",
+                message: decodedData['message'],
+                bgColor: AppColors.appColorBlack);
+          }
+        } else {
+          CustomSnackBar.buildSnackBar(
+              title: "Alert",
+              message: "Invalid Response",
+              bgColor: AppColors.appColorBlack);
+        }
+      } else {
+        CustomSnackBar.buildSnackBar(
+            title: "Connection Error",
+            message: "Please Check your Internet",
+            bgColor: AppColors.appColorBlack);
+      }
+    } catch (e) {
+      Get.back();
+      print("----------------->>>> success");
+      print(e);
+      CustomSnackBar.buildSnackBar(
+          title: "Alert", message: "Something went wrong");
+    }
+  }
 }

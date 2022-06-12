@@ -95,9 +95,6 @@ class _SellingVehicleDetailsTemplateState
                       fit: BoxFit.cover,
                     ),
             ),
-            /*Image(
-              image: AssetImage('assets/images/honda_civic.png'),
-            ),*/
 
             SizedBox(
               height: 10,

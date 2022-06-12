@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:vehicle_service_center_app/controller/notification_controller.dart';
@@ -33,8 +34,11 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  Stripe.publishableKey =
+      "pk_test_51L9vGtKuBDskEPpl8sGie7mwIEPl4dyqLR4ElowUgD6JImKwjFJXxL7KYEWaSi6WkrUSGv7LRLTREMbyNjKUZmkz00WsgNSOV7";
   await Firebase.initializeApp();
   await GetStorage.init('userBox');
+  await GetStorage.init('myBills');
   Get.lazyPut<NetworkController>(() => NetworkController(), fenix: true);
   Get.put(NotificationController(), permanent: true);
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,

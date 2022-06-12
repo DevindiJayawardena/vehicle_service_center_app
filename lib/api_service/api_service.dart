@@ -34,7 +34,7 @@ class ApiService {
       required String vehicleNo,
       String? fcmToken}) async {
     print(
-        "fcm token ------------------------------------------------->$fcmToken");
+        "fcm token register ------------------------------------------------->$fcmToken");
     var data = {
       "first_name": fName,
       "last_name": lName,
@@ -50,8 +50,10 @@ class ApiService {
     return await http.put(url, body: data, headers: header);
   }
 
-  Future<http.Response> customerLoginApi(String email, String password) async {
-    var data = {"email": email, "password": password};
+  Future<http.Response> customerLoginApi(
+      String email, String password, String? fcmToken) async {
+    print("--------------> fcm token login  $fcmToken");
+    var data = {"email": email, "password": password, "fcm_token": fcmToken};
 
     var header = {"Accept": "application/json"};
     var url = Uri.https(API_BASE_URL, "/customer/login");
@@ -278,6 +280,19 @@ class ApiService {
 
     var url = Uri.https(API_BASE_URL, "/advertisement/getAllAdvertisements/");
     var response = await http.get(url, headers: header);
+
+    return response;
+  }
+
+  Future<http.Response> addRate({
+    required String token,
+    required String rate,
+  }) async {
+    print("------------------->RATE$rate");
+    var header = {"Accept": "application/json", "Authorization": token};
+
+    var url = Uri.https(API_BASE_URL, "/service/addRating/$rate");
+    var response = await http.put(url, headers: header);
 
     return response;
   }

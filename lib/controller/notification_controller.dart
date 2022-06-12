@@ -1,6 +1,9 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+
+import '../screens/main/my_bills_screen.dart';
 
 const AndroidNotificationChannel channel = AndroidNotificationChannel(
   'high_importance_channel', // id
@@ -62,10 +65,22 @@ class NotificationController extends GetxController {
   }
 
   void _handleMessage(RemoteMessage message) {
+    final myBills = GetStorage('myBills');
+    myBills.write('total', message.data['total']);
+    myBills.write('subtotal', message.data['subtotal']);
+    myBills.write('vehicleNo', message.data['vehicleNo']);
     print(
         "--------------------------------------->total ${message.data['total']}");
     print(
         "--------------------------------------->sub total ${message.data['subtotal']}");
+    print("--------------------------------------->after saving");
+    print(
+        "--------------------------------------->total ${myBills.read("total")}");
+    print(
+        "--------------------------------------->sub total ${myBills.read("subtotal")}");
+    print(
+        "--------------------------------------->vehicle no ${myBills.read("vehicleNo")}");
+    Get.to(() => MyBillsScreen());
     /*if (message.data['type'] == 'poster') {
       print("---------------------------->${message.data['type']}");
       //Get.to(DashBoardScreen());

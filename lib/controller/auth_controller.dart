@@ -31,11 +31,13 @@ class AuthController extends GetxController {
   }
 
   void emailLogin(String email, String password) async {
+    String? fcmToken = await FirebaseMessaging.instance.getToken();
     try {
       if (networkController.connectionStatus.value != -1) {
         CustomDialogBox.buildDialogBox();
 
-        var response = await ApiService().customerLoginApi(email, password);
+        var response =
+            await ApiService().customerLoginApi(email, password, fcmToken);
         Get.back();
 
         if (response.statusCode == 200) {
