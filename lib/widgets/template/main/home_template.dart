@@ -7,7 +7,9 @@ import 'package:get_storage/get_storage.dart';
 import 'package:vehicle_service_center_app/controller/appoinment_controller.dart';
 import 'package:vehicle_service_center_app/controller/vehicle_sale_controller.dart';
 
+import '../../../const/app_colors.dart';
 import '../../../const/constants.dart';
+import '../../../const/custom_snack_bar.dart';
 import '../../../controller/service_history_controller.dart';
 import '../../../screens/main/selling_vehicle_details_screen.dart';
 import '../../molecules/containers/campaign_card_view.dart';
@@ -37,33 +39,40 @@ class _HomeTemplateState extends State<HomeTemplate> {
     final userBox = GetStorage('userBox');
     var token = userBox.read('token');
     var id = userBox.read('id');
-    return FutureBuilder(
-      future: Future.wait([appointmentController.getAllCarousels()]),
-      builder: (BuildContext context, AsyncSnapshot<List<dynamic>> snapshot) {
-        if (snapshot.hasError) {
-          return Text(snapshot.error.toString());
-        }
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const HomeShimmer();
-        }
-        return Scaffold(
-          extendBodyBehindAppBar: true,
-          appBar: AppBar(
-            backgroundColor: Constants.appColorAmber,
-            elevation: 0,
-            title: Text(""),
-            // leading: IconButton(
-            //     onPressed: () {
-            //       print("notification");
-            //     },
-            //     icon: Icon(
-            //       Icons.view_headline,
-            //       color: Constants.appColorAmber,
-            //     )),
-            // actions: [],
-          ),
-          drawer: DrawerWidget(),
-          body: Container(
+    return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        backgroundColor: Constants.appColorAmber,
+        elevation: 0,
+        title: Text(""),
+        // leading: IconButton(
+        //     onPressed: () {
+        //       print("notification");
+        //     },
+        //     icon: Icon(
+        //       Icons.view_headline,
+        //       color: Constants.appColorAmber,
+        //     )),
+        // actions: [],
+      ),
+      drawer: DrawerWidget(),
+      body: FutureBuilder(
+        future: Future.wait([
+          appointmentController.getAllCarousels(),
+          appointmentController.getAllSaleVehicles()
+        ]),
+        builder: (BuildContext context, AsyncSnapshot<List<dynamic>> snapshot) {
+          if (snapshot.hasError) {
+            CustomSnackBar.buildSnackBar(
+                title: "Error",
+                message: "Something went wrong",
+                bgColor: AppColors.appColorBlack);
+            return Text(snapshot.error.toString());
+          }
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const HomeShimmer();
+          }
+          return Container(
             child: SafeArea(
               child: DefaultTabController(
                 length: 2,
@@ -77,47 +86,50 @@ class _HomeTemplateState extends State<HomeTemplate> {
                       items: appointmentController.imgList
                           .map((src) => Container(
                                 margin: EdgeInsets.all(3.0),
-                                child: Image.memory(src),
+                                child: src == null
+                                    ? Image.asset(
+                                        "assets/images/placeholder.png")
+                                    : Image.memory(src),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(14.0),
                                 ),
                               ))
                           .toList(),
                       /*[
-                        Container(
-                          margin: EdgeInsets.all(3.0),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(14.0),
-                            image: DecorationImage(
-                              image:
-                                  AssetImage("assets/images/location_one.png"),
-                              fit: BoxFit.cover,
+                          Container(
+                            margin: EdgeInsets.all(3.0),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(14.0),
+                              image: DecorationImage(
+                                image:
+                                    AssetImage("assets/images/location_one.png"),
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
-                        ),
-                        Container(
-                          margin: EdgeInsets.all(3.0),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(14.0),
-                            image: DecorationImage(
-                              image:
-                                  AssetImage("assets/images/location_two.png"),
-                              fit: BoxFit.cover,
+                          Container(
+                            margin: EdgeInsets.all(3.0),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(14.0),
+                              image: DecorationImage(
+                                image:
+                                    AssetImage("assets/images/location_two.png"),
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
-                        ),
-                        Container(
-                          margin: EdgeInsets.all(3.0),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(14.0),
-                            image: DecorationImage(
-                              image: AssetImage(
-                                  "assets/images/location_three.png"),
-                              fit: BoxFit.cover,
+                          Container(
+                            margin: EdgeInsets.all(3.0),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(14.0),
+                              image: DecorationImage(
+                                image: AssetImage(
+                                    "assets/images/location_three.png"),
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
-                        ),
-                      ],*/
+                        ],*/
                       options: CarouselOptions(
                         height: 180.0,
                         enlargeCenterPage: true,
@@ -274,12 +286,12 @@ class _HomeTemplateState extends State<HomeTemplate> {
                                                 ),
                                                 onPressed: () {
                                                   /*Navigator.of(context)
-                                                  .pushReplacement(
-                                                      MaterialPageRoute(
-                                                builder:
-                                                    (BuildContext context) =>
-                                                        ViewAppointmentScreen(),
-                                              ));*/
+                                                    .pushReplacement(
+                                                        MaterialPageRoute(
+                                                  builder:
+                                                      (BuildContext context) =>
+                                                          ViewAppointmentScreen(),
+                                                ));*/
                                                   appointmentController
                                                       .getAllAppointment(token);
                                                 },
@@ -381,10 +393,10 @@ class _HomeTemplateState extends State<HomeTemplate> {
                                             .viewCustomerVehicleForSale();
 
                                         /*Navigator.of(context)
-                                        .push(MaterialPageRoute(
-                                      builder: (BuildContext context) =>
-                                          SellYourVehicleScreen(),
-                                    ));*/
+                                          .push(MaterialPageRoute(
+                                        builder: (BuildContext context) =>
+                                            SellYourVehicleScreen(),
+                                      ));*/
                                       },
                                     ),
                                   ],
@@ -411,70 +423,42 @@ class _HomeTemplateState extends State<HomeTemplate> {
                                   ],
                                 ),
 
-                                Container(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      print("printed gesture detector");
-                                      Navigator.of(context)
-                                          .pushReplacement(MaterialPageRoute(
-                                        builder: (BuildContext context) =>
-                                            SellingVehicleDetailsScreen(),
-                                      ));
-                                    },
-                                    child: CampaignCardView(
-                                      title: "Honda Civic 2007",
-                                      imgUrl: "assets/images/honda_civic.png",
-                                      location: "Gampaha",
-                                      price: "Rs. 5,590,000",
-                                      distance: "129000km",
-                                    ),
-                                  ),
-                                ),
-
-                                Container(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      print("printed gesture detecture");
-                                      Navigator.of(context)
-                                          .pushReplacement(MaterialPageRoute(
-                                        builder: (BuildContext context) =>
-                                            SellingVehicleDetailsScreen(),
-                                      ));
-                                    },
-                                    child: CampaignCardView(
-                                      title: "Toyota Vitz 2015",
-                                      imgUrl:
-                                          "assets/images/toyota_vitz_2015.png",
-                                      location: "Kadawatha",
-                                      price: "Rs. 6,550,000",
-                                      distance: "85000km",
-                                    ),
-                                  ),
-                                ),
-
-                                Container(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      print("printed gesture detecture");
-                                      Navigator.of(context)
-                                          .pushReplacement(MaterialPageRoute(
-                                        builder: (BuildContext context) =>
-                                            SellingVehicleDetailsScreen(),
-                                      ));
-                                    },
-                                    child: CampaignCardView(
-                                      title: "Toyota Vitz 2015",
-                                      imgUrl:
-                                          "assets/images/toyota_vitz_2015.png",
-                                      location: "Kadawatha",
-                                      price: "Rs. 6,550,000",
-                                      distance: "85000km",
-                                    ),
-                                  ),
-                                ),
+                                SizedBox(
+                                  height: 400,
+                                  child: ListView.builder(
+                                      itemCount: appointmentController
+                                          .saleVehicle.data?.length,
+                                      itemBuilder: (ctx, i) {
+                                        return Container(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: GestureDetector(
+                                            onTap: () {
+                                              Get.to(
+                                                  () =>
+                                                      SellingVehicleDetailsScreen(),
+                                                  arguments: [
+                                                    appointmentController
+                                                        .saleVehicle.data![i]
+                                                  ]);
+                                            },
+                                            child: CampaignCardView(
+                                              title:
+                                                  "${appointmentController.saleVehicle.data![i].brand} ${appointmentController.saleVehicle.data![i].model}  ${appointmentController.saleVehicle.data![i].manufacturedYear}",
+                                              imgUrl: appointmentController
+                                                  .saleVehicle
+                                                  .data![i]
+                                                  .thumbnail,
+                                              location:
+                                                  "${appointmentController.saleVehicle.data![i].city}",
+                                              price:
+                                                  "${appointmentController.saleVehicle.data![i].price}",
+                                              distance:
+                                                  "${appointmentController.saleVehicle.data![i].mileage}",
+                                            ),
+                                          ),
+                                        );
+                                      }),
+                                )
                               ],
                             ),
                           ),
@@ -485,9 +469,9 @@ class _HomeTemplateState extends State<HomeTemplate> {
                 ),
               ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }

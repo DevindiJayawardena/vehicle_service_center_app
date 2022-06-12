@@ -1,12 +1,12 @@
-
 import 'package:flutter/material.dart';
 
+import '../../../const/base_64_conver.dart';
 import '../../../const/constants.dart';
 import '../../../const/widget_size.dart';
 import '../../atoms/app_label.dart';
 
 class CampaignCardView extends StatelessWidget {
-  final String imgUrl;
+  final String? imgUrl;
   final String title;
   final String location;
   final String price;
@@ -15,7 +15,7 @@ class CampaignCardView extends StatelessWidget {
   CampaignCardView({
     Key? key,
     required this.title,
-    required this.imgUrl,
+    this.imgUrl,
     required this.location,
     required this.price,
     required this.distance,
@@ -28,11 +28,9 @@ class CampaignCardView extends StatelessWidget {
           elevation: 9,
           shadowColor: Colors.grey,
           clipBehavior: Clip.antiAlias,
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8)
-          ),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
           child: Padding(
-            padding: const EdgeInsets.symmetric(vertical : 8.0),
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
             child: Container(
               width: double.infinity,
               height: 120,
@@ -40,12 +38,14 @@ class CampaignCardView extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Container(
-                    child: Image.asset(
-                      imgUrl,
-                      width: 167,
-                      height: 100,
-                      fit: BoxFit.cover,
-                    ),
+                    child: imgUrl == null
+                        ? Image.asset("assets/images/placeholder.png")
+                        : Image.memory(
+                            Base64Convertor.base64StringToBite(imgUrl)!,
+                            width: 167,
+                            height: 100,
+                            fit: BoxFit.cover,
+                          ),
                   ),
                   Expanded(
                     flex: 5,
@@ -57,22 +57,26 @@ class CampaignCardView extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            AppLabel(text: title,
+                            AppLabel(
+                              text: title,
                               widgetSize: WidgetSize.large,
                               textColor: Constants.appColorAmberMoreDark,
                               fontWeight: FontWeight.w500,
                             ),
-                            AppLabel(text: location,
+                            AppLabel(
+                              text: location,
                               widgetSize: WidgetSize.medium,
                               textColor: Constants.appColorAmberDark,
                               fontWeight: FontWeight.w500,
                             ),
-                            AppLabel(text: price,
+                            AppLabel(
+                              text: price,
                               widgetSize: WidgetSize.medium,
                               textColor: Colors.black54,
                               fontWeight: FontWeight.w500,
                             ),
-                            AppLabel(text: distance,
+                            AppLabel(
+                              text: distance,
                               widgetSize: WidgetSize.small,
                               textColor: Colors.grey,
                               fontWeight: FontWeight.w400,
@@ -85,8 +89,7 @@ class CampaignCardView extends StatelessWidget {
                 ],
               ),
             ),
-          )
-      ),
+          )),
     );
   }
 }

@@ -2,8 +2,9 @@ class SaleVehicle {
   int? code;
   bool? success;
   List<Data>? data;
+  String? message;
 
-  SaleVehicle({this.code, this.success, this.data});
+  SaleVehicle({this.code, this.success, this.data, this.message});
 
   SaleVehicle.fromJson(Map<String, dynamic> json) {
     code = json['code'];
@@ -14,6 +15,7 @@ class SaleVehicle {
         data!.add(new Data.fromJson(v));
       });
     }
+    message = json['message'];
   }
 }
 
@@ -22,7 +24,6 @@ class Data {
   int? vehicleId;
   String? brand;
   String? model;
-  String? thumbnail;
   String? manufacturedYear;
   String? vehicleCondition;
   String? transmission;
@@ -33,6 +34,7 @@ class Data {
   String? city;
   int? price;
   String? contactNumber;
+  String? thumbnail;
   int? isSold;
   String? createdAt;
   int? customerId;
@@ -47,7 +49,6 @@ class Data {
       this.vehicleId,
       this.brand,
       this.model,
-      this.thumbnail,
       this.manufacturedYear,
       this.vehicleCondition,
       this.transmission,
@@ -58,6 +59,7 @@ class Data {
       this.city,
       this.price,
       this.contactNumber,
+      this.thumbnail,
       this.isSold,
       this.createdAt,
       this.customerId,
@@ -72,7 +74,6 @@ class Data {
     vehicleId = json['vehicle_id'];
     brand = json['brand'];
     model = json['model'];
-    thumbnail = json['thumbnail'];
     manufacturedYear = json['manufactured_year'];
     vehicleCondition = json['vehicle_condition'];
     transmission = json['transmission'];
@@ -83,6 +84,7 @@ class Data {
     city = json['city'];
     price = json['price'];
     contactNumber = json['contact_number'];
+    thumbnail = json['thumbnail'];
     isSold = json['is_sold'];
     createdAt = json['created_at'];
     customerId = json['customer_id'];

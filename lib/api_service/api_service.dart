@@ -270,4 +270,15 @@ class ApiService {
 
     return response;
   }
+
+  Future<http.Response> getAllSaleVehicles({
+    required String token,
+  }) async {
+    var header = {"Accept": "application/json", "Authorization": token};
+
+    var url = Uri.https(API_BASE_URL, "/advertisement/getAllAdvertisements/");
+    var response = await http.get(url, headers: header);
+
+    return response;
+  }
 }

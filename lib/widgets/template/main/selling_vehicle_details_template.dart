@@ -1,20 +1,24 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
+import '../../../const/base_64_conver.dart';
 import '../../../const/constants.dart';
-import '../../../screens/main/home_screen.dart';
+import '../../../model/sale_vehicle.dart';
 import '../../molecules/containers/drawer.dart';
 
 class SellingVehicleDetailsTemplate extends StatefulWidget {
-  const SellingVehicleDetailsTemplate({Key? key}) : super(key: key);
+  final Data vehicleData;
+
+  SellingVehicleDetailsTemplate({Key? key, required this.vehicleData})
+      : super(key: key);
 
   @override
-  _SellingVehicleDetailsTemplateState createState() => _SellingVehicleDetailsTemplateState();
+  _SellingVehicleDetailsTemplateState createState() =>
+      _SellingVehicleDetailsTemplateState();
 }
 
-class _SellingVehicleDetailsTemplateState extends State<SellingVehicleDetailsTemplate> {
+class _SellingVehicleDetailsTemplateState
+    extends State<SellingVehicleDetailsTemplate> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,22 +26,24 @@ class _SellingVehicleDetailsTemplateState extends State<SellingVehicleDetailsTem
         title: Text("For Sale"),
         backgroundColor: Constants.appColorAmber,
       ),
-
       drawer: DrawerWidget(),
-
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(height: 20,),
+            SizedBox(
+              height: 20,
+            ),
 
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 30),
               child: Column(
                 children: [
-                  SizedBox(height: 20,),
+                  SizedBox(
+                    height: 20,
+                  ),
                   Center(
                     child: Text(
-                      'Honda Civic 2007',
+                      '${widget.vehicleData.brand} ${widget.vehicleData.model} ${widget.vehicleData.manufacturedYear}',
                       style: TextStyle(
                         color: Constants.appColorAmberMoreDark,
                         fontWeight: FontWeight.bold,
@@ -45,21 +51,25 @@ class _SellingVehicleDetailsTemplateState extends State<SellingVehicleDetailsTem
                       ),
                     ),
                   ),
-                  SizedBox(height: 10,),
+                  SizedBox(
+                    height: 10,
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'Gampaha',
+                        '${widget.vehicleData.city}',
                         style: TextStyle(
                           color: Constants.appColorAmberMoreDark,
                           fontWeight: FontWeight.bold,
                           fontSize: 14,
                         ),
                       ),
-                      SizedBox(width: 30,),
+                      SizedBox(
+                        width: 30,
+                      ),
                       Text(
-                        '0767201235',
+                        '${widget.vehicleData.contactNumber}',
                         style: TextStyle(
                           color: Constants.appColorAmberDark,
                           fontWeight: FontWeight.bold,
@@ -72,12 +82,26 @@ class _SellingVehicleDetailsTemplateState extends State<SellingVehicleDetailsTem
               ),
             ),
 
-
             //SizedBox(height: 5,),
+            Container(
+              padding: EdgeInsets.symmetric(vertical: 20),
+              child: widget.vehicleData.thumbnail == null
+                  ? Image.asset("assets/images/placeholder.png")
+                  : Image.memory(
+                      Base64Convertor.base64StringToBite(
+                          widget.vehicleData.thumbnail)!,
+                      width: 300,
+                      height: 200,
+                      fit: BoxFit.cover,
+                    ),
+            ),
+            /*Image(
+              image: AssetImage('assets/images/honda_civic.png'),
+            ),*/
 
-            Image(image: AssetImage('assets/images/honda_civic.png'),),
-
-            SizedBox(height: 10,),
+            SizedBox(
+              height: 10,
+            ),
 
             Center(
               child: Text(
@@ -90,7 +114,9 @@ class _SellingVehicleDetailsTemplateState extends State<SellingVehicleDetailsTem
               ),
             ),
 
-            SizedBox(height: 55,),
+            SizedBox(
+              height: 55,
+            ),
 
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 70.0),
@@ -100,7 +126,9 @@ class _SellingVehicleDetailsTemplateState extends State<SellingVehicleDetailsTem
                   Text(
                     'Brand : Honda',
                   ),
-                  SizedBox(width: 40,),
+                  SizedBox(
+                    width: 40,
+                  ),
                   Text(
                     'Model : Civic',
                   ),
@@ -108,7 +136,9 @@ class _SellingVehicleDetailsTemplateState extends State<SellingVehicleDetailsTem
               ),
             ),
 
-            SizedBox(height: 14,),
+            SizedBox(
+              height: 14,
+            ),
 
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 70.0),
@@ -118,7 +148,9 @@ class _SellingVehicleDetailsTemplateState extends State<SellingVehicleDetailsTem
                   Text(
                     'Y.O.M : 2007',
                   ),
-                  SizedBox(width: 40,),
+                  SizedBox(
+                    width: 40,
+                  ),
                   Text(
                     'Condition : Used',
                   ),
@@ -126,8 +158,9 @@ class _SellingVehicleDetailsTemplateState extends State<SellingVehicleDetailsTem
               ),
             ),
 
-
-            SizedBox(height: 14,),
+            SizedBox(
+              height: 14,
+            ),
 
             Center(
               child: Text(
@@ -135,7 +168,9 @@ class _SellingVehicleDetailsTemplateState extends State<SellingVehicleDetailsTem
               ),
             ),
 
-            SizedBox(height: 14,),
+            SizedBox(
+              height: 14,
+            ),
 
             Center(
               child: Text(
@@ -143,7 +178,9 @@ class _SellingVehicleDetailsTemplateState extends State<SellingVehicleDetailsTem
               ),
             ),
 
-            SizedBox(height: 14,),
+            SizedBox(
+              height: 14,
+            ),
 
             Center(
               child: Text(
@@ -151,7 +188,9 @@ class _SellingVehicleDetailsTemplateState extends State<SellingVehicleDetailsTem
               ),
             ),
 
-            SizedBox(height: 14,),
+            SizedBox(
+              height: 14,
+            ),
 
             Center(
               child: Text(
@@ -159,7 +198,9 @@ class _SellingVehicleDetailsTemplateState extends State<SellingVehicleDetailsTem
               ),
             ),
 
-            SizedBox(height: 24,),
+            SizedBox(
+              height: 24,
+            ),
 
             Center(
               child: Text(
@@ -171,7 +212,9 @@ class _SellingVehicleDetailsTemplateState extends State<SellingVehicleDetailsTem
               ),
             ),
 
-            SizedBox(height: 20,),
+            SizedBox(
+              height: 20,
+            ),
 
             ElevatedButton(
               onPressed: () {
@@ -183,9 +226,9 @@ class _SellingVehicleDetailsTemplateState extends State<SellingVehicleDetailsTem
               ),
             ),
 
-            SizedBox(height: 20,),
-
-
+            SizedBox(
+              height: 20,
+            ),
           ],
         ),
       ),
