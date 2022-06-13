@@ -289,12 +289,27 @@ class ApiService {
   Future<http.Response> addRate({
     required String token,
     required String rate,
+    required String serviceId,
   }) async {
     print("------------------->RATE$rate");
     var header = {"Accept": "application/json", "Authorization": token};
 
     var url = Uri.https(API_BASE_URL, "/service/addRating/$rate");
     var response = await http.put(url, headers: header);
+
+    return response;
+  }
+
+  Future<http.Response> submitPayment({
+    required String token,
+    required String total,
+    required String paymentType,
+    required String serviceId,
+  }) async {
+    var header = {"Accept": "application/json", "Authorization": token};
+    var data = {"price": total, "payment_method": paymentType};
+    var url = Uri.https(API_BASE_URL, "/service/pay/$serviceId");
+    var response = await http.put(url, headers: header, body: data);
 
     return response;
   }

@@ -3,10 +3,21 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
+import 'package:vehicle_service_center_app/screens/main/home_screen.dart';
+
+import '../api_service/api_service.dart';
+import '../const/app_colors.dart';
+import '../const/custom_dialog_box.dart';
+import '../const/custom_snack_bar.dart';
+import 'network_controller.dart';
 
 class PaymentController extends GetxController {
   Map<String, dynamic>? paymentIntentData;
+  final myBill = GetStorage('myBills');
+  final userBox = GetStorage('userBox');
+  NetworkController networkController = Get.find<NetworkController>();
 
   Future<void> makePayment(
       {required String amount, required String currency}) async {
@@ -34,12 +45,7 @@ class PaymentController extends GetxController {
   displayPaymentSheet() async {
     try {
       await Stripe.instance.presentPaymentSheet();
-      Get.snackbar('Payment', 'Payment Successful',
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.green,
-          colorText: Colors.white,
-          margin: const EdgeInsets.all(10),
-          duration: const Duration(seconds: 2));
+      await submitPay();
     } on Exception catch (e) {
       if (e is StripeException) {
         print("Error from Stripe: ${e.error.localizedMessage}");
@@ -78,5 +84,63 @@ class PaymentController extends GetxController {
   calculateAmount(String amount) {
     final a = (int.parse(amount)) * 100;
     return a.toString();
+  }
+
+  Future submitPay() async {
+    var token = userBox.read("token");
+    var total = myBill.read("total");
+    var serviceId = myBill.read("serviceId");
+    try {
+      if (networkController.connectionStatus.value != -1) {
+        print("payment token--------------------->$token");
+        print("payment total--------------------->$total");
+        print("payment serviceid--------------------->$serviceId");
+        CustomDialogBox.buildDialogBox();
+        var response = await ApiService().submitPayment(
+            token: token,
+            total: total,
+            paymentType: "Card Payment",
+            serviceId: serviceId);
+        Get.back();
+        print("payment body--------------------->");
+        print(response.body);
+        if (response.statusCode == 200) {
+          myBill.erase();
+          Map<String, dynamic> decodedData = jsonDecode(response.body);
+
+          if (decodedData['success']) {
+            print("payment success--------------------->");
+            print(decodedData);
+            Get.offAll(HomeScreen());
+            Get.snackbar('Payment', 'Payment Successful',
+                snackPosition: SnackPosition.BOTTOM,
+                backgroundColor: Colors.black,
+                colorText: Colors.white,
+                margin: const EdgeInsets.all(10),
+                duration: const Duration(seconds: 3));
+          } else {
+            CustomSnackBar.buildSnackBar(
+                title: "Alert",
+                message: decodedData['message'],
+                bgColor: AppColors.appColorBlack);
+          }
+        } else {
+          CustomSnackBar.buildSnackBar(
+              title: "Alert",
+              message: "Invalid Response",
+              bgColor: AppColors.appColorBlack);
+        }
+      } else {
+        CustomSnackBar.buildSnackBar(
+            title: "Connection Error",
+            message: "Please Check your Internet",
+            bgColor: AppColors.appColorBlack);
+      }
+    } catch (e) {
+      Get.back();
+      print(e);
+      CustomSnackBar.buildSnackBar(
+          title: "Alert", message: "Something went wrong");
+    }
   }
 }

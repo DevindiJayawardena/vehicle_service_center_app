@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:vehicle_service_center_app/controller/payment_controller.dart';
 import 'package:vehicle_service_center_app/controller/vehicle_sale_controller.dart';
 
@@ -22,6 +23,24 @@ class _MyBillsTemplateState extends State<MyBillsTemplate> {
   String rating = "";
   VehicleSaleController vehicleSaleController =
       Get.find<VehicleSaleController>();
+  final myBill = GetStorage('myBills');
+
+  bool checkBillAvailable() {
+    print(myBill.read("serviceId"));
+    print(myBill.read("total"));
+    print(myBill.read("subtotal"));
+    var serviceId = myBill.read("serviceId");
+    if (serviceId != null) {
+      if (serviceId.isNotEmpty) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     PaymentController paymentController = Get.put(PaymentController());
@@ -86,10 +105,12 @@ class _MyBillsTemplateState extends State<MyBillsTemplate> {
                   text: "Save",
                   color: Constants.appColorAmberDark,
                   widgetSize: WidgetSize.maxSize,
-                  clickEvent: () {
-                    //Get.toNamed(Routes.AD_PACKAGE);
-                    vehicleSaleController.addRate(rate: rating);
-                  }),
+                  clickEvent: checkBillAvailable()
+                      ? () {
+                          //Get.toNamed(Routes.AD_PACKAGE);
+                          vehicleSaleController.addRate(rate: rating);
+                        }
+                      : () {}),
             ),
 
             SizedBox(
@@ -115,11 +136,13 @@ class _MyBillsTemplateState extends State<MyBillsTemplate> {
                 children: [
                   ElevatedButton(
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const HomeScreen()),
-                      );
+                      if (myBill.hasData("total")) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const HomeScreen()),
+                        );
+                      }
                     },
                     child: Text(
                       'Cash Payment',
@@ -133,8 +156,13 @@ class _MyBillsTemplateState extends State<MyBillsTemplate> {
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      paymentController.makePayment(
-                          amount: "5", currency: "USD");
+                      if (myBill.hasData("total")) {
+                        var dubValue = double.parse(myBill.read("total"));
+                        var intVal = dubValue.toInt();
+                        print(intVal);
+                        paymentController.makePayment(
+                            amount: "${intVal}", currency: "USD");
+                      }
                     },
                     child: Text(
                       'Online Payment',

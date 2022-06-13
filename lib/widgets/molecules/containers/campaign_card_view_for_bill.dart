@@ -12,13 +12,12 @@ class CampaignCardViewForBill extends StatelessWidget {
   }) : super(key: key);
 
   bool checkBillAvailable() {
-    print("billing data---------------------->");
-    print(myBill.read("vehicleNo"));
+    print(myBill.read("serviceId"));
     print(myBill.read("total"));
     print(myBill.read("subtotal"));
-    var vehicleNo = myBill.read("vehicleNo");
-    if (vehicleNo != null) {
-      if (vehicleNo.isNotEmpty) {
+    var serviceId = myBill.read("serviceId");
+    if (serviceId != null) {
+      if (serviceId.isNotEmpty) {
         return true;
       } else {
         return false;
@@ -42,32 +41,145 @@ class CampaignCardViewForBill extends StatelessWidget {
                     elevation: 9,
                     shadowColor: Constants.appColorAmberDark,
                     clipBehavior: Clip.antiAlias,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        ListTile(
-                          leading: Icon(Icons.summarize_outlined, size: 45),
-                          title: Text('Appointment Summary & Bill\n'),
-                          subtitle:
-                              Text('Vehicle No: ${myBill.read("vehicleNo")}\n'),
-                        ),
-                        //SizedBox(height: ,),
-                        ListTile(
-                          //leading: Icon(Icons.summarize_outlined, color: Colors.white,size: 45),
-                          //title: Text('Appointment Summary'),
-                          subtitle: Text(
-                            'Payment Details\n',
-                            style: TextStyle(
-                              color: Constants.appColorAmberMoreDark,
-                            ),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20.0, vertical: 20),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "Date",
+                                style: TextStyle(color: Colors.grey),
+                              ),
+                              Text("${myBill.read("date")}",
+                                  style: TextStyle(color: Colors.grey))
+                            ],
                           ),
-                        ),
-                        Container(
-                          child: Text(
-                            "Total = ${myBill.read("total")}\nSubtotal = ${myBill.read("subtotal")}\\n",
+                          SizedBox(
+                            height: 10,
                           ),
-                        ),
-                      ],
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "Name",
+                                style: TextStyle(color: Colors.grey),
+                              ),
+                              Text(
+                                  "${myBill.read("fName")} ${myBill.read("lName")}",
+                                  style: TextStyle(color: Colors.grey))
+                            ],
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "NIC",
+                                style: TextStyle(color: Colors.grey),
+                              ),
+                              Text("${myBill.read("nic")}",
+                                  style: TextStyle(color: Colors.grey))
+                            ],
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "Email",
+                                style: TextStyle(color: Colors.grey),
+                              ),
+                              Text("${myBill.read("email")}",
+                                  style: TextStyle(color: Colors.grey))
+                            ],
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "Vehicle No",
+                                style: TextStyle(color: Colors.grey),
+                              ),
+                              Text("${myBill.read("vehicleNumber")}",
+                                  style: TextStyle(color: Colors.grey))
+                            ],
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "Service Type",
+                                style: TextStyle(color: Colors.grey),
+                              ),
+                              Text("${myBill.read("upgradeType")}",
+                                  style: TextStyle(color: Colors.grey))
+                            ],
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "Discount",
+                                style: TextStyle(color: Colors.grey),
+                              ),
+                              Text("${myBill.read("discount")}%",
+                                  style: TextStyle(color: Colors.grey))
+                            ],
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "Subtotal",
+                                style: TextStyle(color: Colors.grey),
+                              ),
+                              Text("${myBill.read("subtotal")}\$",
+                                  style: TextStyle(
+                                      color: Colors.grey,
+                                      fontWeight: FontWeight.bold))
+                            ],
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "Total",
+                                style: TextStyle(color: Colors.grey),
+                              ),
+                              Text("${myBill.read("total")}\$",
+                                  style: TextStyle(
+                                      color: Colors.grey,
+                                      fontWeight: FontWeight.bold))
+                            ],
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                        ],
+                      ),
                     ),
                   )
                 : SizedBox(

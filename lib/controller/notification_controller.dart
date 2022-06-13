@@ -66,31 +66,66 @@ class NotificationController extends GetxController {
 
   void _handleMessage(RemoteMessage message) {
     final myBills = GetStorage('myBills');
-    myBills.write('total', message.data['total']);
-    myBills.write('subtotal', message.data['subtotal']);
-    myBills.write('vehicleNo', message.data['vehicleNo']);
-    print(
-        "--------------------------------------->total ${message.data['total']}");
-    print(
-        "--------------------------------------->sub total ${message.data['subtotal']}");
-    print("--------------------------------------->after saving");
-    print(
-        "--------------------------------------->total ${myBills.read("total")}");
-    print(
-        "--------------------------------------->sub total ${myBills.read("subtotal")}");
-    print(
-        "--------------------------------------->vehicle no ${myBills.read("vehicleNo")}");
-    Get.to(() => MyBillsScreen());
-    /*if (message.data['type'] == 'poster') {
-      print("---------------------------->${message.data['type']}");
-      //Get.to(DashBoardScreen());
-    } else if (message.data['type'] == "campaign") {
-      //Get.to(CampaignsScreen());
-    } else if (message.data['type'] == "request") {
-      //Get.to(RequestScreen());
+    print("-------------------------> All Data");
+    print(message.data);
+    myBills.write('fname', message.data['customer_first_name']);
+    myBills.write('lName', message.data['customer_first_name']);
+    myBills.write('date', message.data['date']);
+    myBills.write('paymentType', "CASH/CARD");
+    myBills.write('discount', message.data['discount']);
+    myBills.write('subtotal', message.data['price']);
+    myBills.write('serviceId', message.data['id']);
+    myBills.write('nic', message.data['nic_number']);
+    myBills.write('email', message.data['email']);
+    myBills.write('vehicleType', message.data['vehicle_type']);
+    myBills.write('vehicleNumber', message.data['vehicle_number']);
+    myBills.write('upgradeType', message.data['upgrade_type_name']);
+    myBills.write('serviceId', message.data['id']);
+
+    String discount = message.data['discount'].toString();
+    double price = double.parse(message.data['price'].toString());
+    if (discount == "0") {
+      myBills.write('total', message.data['price']);
     } else {
-      //Get.to(DashBoardScreen());
+      double doubleDiscount = double.parse(discount);
+      var disValue = (price / 100) * doubleDiscount;
+      var total = price - disValue;
+      myBills.write('total', total.toString());
+    }
+
+    /*{date: 2022:06:13,
+    rating: 0,
+    description: description,
+    appointment_id: 30,
+    discount: 0,
+    created_at: 2022:06:13 15:19,
+    employee_phone_number: 0912345678,
+    is_completed: 1,
+    customer_last_name: Madhushan,
+    price: 1000,
+    employee_nic_number: 3849586859,
+    id: 12, is_paid: 0,
+    vehicle_id: 36,
+    nic_number: 7685757468V,
+    email: vinod@abc.com,
+    employee_first_name: Vinod,
+    time_slot_id: 3,
+    is_done: 1,
+    employee_address: fkkjsnd,
+    customer_first_name: Vinod,
+    employee_last_name: Madhushan,
+    end_time: 11, vehicle_type: Car,
+    upgrade_type_id: 2,
+    contact_number: 0712345678,
+    start_time: 10,
+    employee_email: vinodmadhu97@gmail.com,
+    vehicle_number: CCA-1245,
+    employee_id: 41,
+    upgrade_type_name: sample,
+    customer_id: 26, status: Arrived
     }*/
+
+    Get.to(() => MyBillsScreen());
   }
 
   /*void inAppNotification() {
