@@ -127,11 +127,11 @@ class Constants {
   ];
 
   List<dynamic> vehicleTypeList = [
-    {"id": 1, "label": "Car"},
-    {"id": 2, "label": "Van"},
-    {"id": 3, "label": "Jeep"},
-    {"id": 4, "label": "Motor Bike"},
-    {"id": 4, "label": "Bus"},
+    {"id": "Car", "label": "Car"},
+    {"id": "Van", "label": "Van"},
+    {"id": "Jeep", "label": "Jeep"},
+    {"id": "Motor Bike", "label": "Motor Bike"},
+    {"id": "Bus", "label": "Bus"},
   ];
 
   List<dynamic> serviceTypesList = [

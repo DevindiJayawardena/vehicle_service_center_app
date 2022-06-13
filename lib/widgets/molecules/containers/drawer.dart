@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_switch/flutter_switch.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:select_form_field/select_form_field.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:vehicle_service_center_app/controller/profile_controller.dart';
 
 import '../../../const/constants.dart';
+import '../../../controller/language_controller.dart';
 import '../../../screens/auth/login_screen.dart';
 import '../../../screens/main/chatbot_screen.dart';
 import '../../../screens/main/contact_us_screen.dart';
@@ -33,9 +35,21 @@ class _DrawerWidgetState extends State<DrawerWidget> {
   }
 
   ProfileController profileController = Get.put(ProfileController());
-
+  var languageController = Get.find<LanguageController>();
   bool language_set = true;
   bool appearance = false;
+  final userBox = GetStorage('userBox');
+
+  final List<Map<String, dynamic>> _items = [
+    {
+      'value': 'EN',
+      'label': 'English',
+    },
+    {
+      'value': 'SI',
+      'label': 'සිංහල',
+    },
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -157,92 +171,28 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                     },
                   ),
                   Divider(),
-                  ListTile(
-                    leading: Icon(
-                      Icons.color_lens_outlined,
-                      color: Constants.appColorAmberDark,
-                    ),
-                    title: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Text(
-                          'Appearance : Dark',
-                          style: TextStyle(
-                            color: Constants.appColorBlack,
-                            fontWeight: FontWeight.w600,
-                          ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: SelectFormField(
+                        type: SelectFormFieldType.dropdown,
+                        // or can be dialog
+                        initialValue: languageController.getLocale() == null
+                            ? "EN"
+                            : languageController.getLocale()!.languageCode,
+                        icon: Icon(Icons.language),
+                        labelText: 'language'.tr,
+                        items: _items,
+                        onChanged: (val) {
+                          if (val == "SI") {
+                            languageController.changeLanguage("si", "LK");
+                          } else if (val == "TA") {
+                            languageController.changeLanguage("ta", "LK");
+                          } else {
+                            languageController.changeLanguage("en", "US");
+                          }
+                        }
+                        //onSaved: (val) => print(val),
                         ),
-                        FlutterSwitch(
-                          activeColor: Constants.appColorAmberDark,
-                          width: 69.0,
-                          height: 30.0,
-                          valueFontSize: 11.0,
-                          toggleSize: 45.0,
-                          value: appearance,
-                          borderRadius: 20.0,
-                          padding: 4.0,
-                          showOnOff: true,
-                          onToggle: (val) {
-                            setState(() {
-                              appearance = val;
-                            });
-                          },
-                        ),
-                      ],
-                    ),
-                    onTap: () {
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(builder: (context) => const ContactGtagScreen()),
-                      // );
-                      //Navigator.pop(context);
-                    },
-                  ),
-                  Divider(),
-                  ListTile(
-                    leading: Icon(
-                      Icons.language_outlined,
-                      color: Constants.appColorAmberDark,
-                    ),
-                    title: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Text(
-                          'Language : English',
-                          style: TextStyle(
-                            color: Constants.appColorBlack,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        FlutterSwitch(
-                          activeColor: Constants.appColorAmberDark,
-                          width: 69.0,
-                          height: 30.0,
-                          valueFontSize: 11.0,
-                          toggleSize: 45.0,
-                          value: language_set,
-                          borderRadius: 20.0,
-                          padding: 4.0,
-                          showOnOff: true,
-                          onToggle: (val) {
-                            setState(() {
-                              language_set = val;
-                            });
-                          },
-                        ),
-                      ],
-                    ),
-                    // title: const Text('Language : English', style: TextStyle(
-                    //   color: Constants.appColorBlack,
-                    //   fontWeight: FontWeight.w600,
-                    // ),),
-                    onTap: () {
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(builder: (context) => const ContactGtagScreen()),
-                      // );
-                      //Navigator.pop(context);
-                    },
                   ),
                   Divider(),
                   ListTile(
@@ -323,11 +273,8 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                       ),
                     ),
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const LoginScreen()),
-                      );
+                      userBox.remove("token");
+                      Get.offAll(() => LoginScreen());
                       //Navigator.pop(context);
                     },
                   ),

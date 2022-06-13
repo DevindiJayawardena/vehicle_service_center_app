@@ -14,6 +14,8 @@ import 'package:vehicle_service_center_app/screens/main/user_registeration_scree
 import 'package:vehicle_service_center_app/screens/startup/onboarding_screen.dart';
 
 import 'const/constants.dart';
+import 'const/translation_string.dart';
+import 'controller/language_controller.dart';
 import 'controller/network_controller.dart';
 
 const AndroidNotificationChannel channel = AndroidNotificationChannel(
@@ -39,8 +41,12 @@ void main() async {
   await Firebase.initializeApp();
   await GetStorage.init('userBox');
   await GetStorage.init('myBills');
+  await GetStorage.init('langBox');
+
   Get.lazyPut<NetworkController>(() => NetworkController(), fenix: true);
   Get.put(NotificationController(), permanent: true);
+  Get.put(LanguageController(), permanent: true);
+
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
       overlays: [SystemUiOverlay.bottom, SystemUiOverlay.top]);
 
@@ -56,18 +62,21 @@ void main() async {
     sound: true,
   );
 
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  MyApp({Key? key}) : super(key: key);
 
   // This widget is the root of your application.
+  LanguageController languageController = Get.find<LanguageController>();
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Service Center',
+      translations: TranslationString(),
+      locale: languageController.getLocale(),
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),

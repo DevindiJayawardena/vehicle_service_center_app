@@ -82,65 +82,42 @@ class _HomeTemplateState extends State<HomeTemplate> {
                     SizedBox(
                       height: AppBar().preferredSize.height * 0.4,
                     ),
-                    CarouselSlider(
-                      items: appointmentController.imgList
-                          .map((src) => Container(
-                                margin: EdgeInsets.all(3.0),
-                                child: src == null
-                                    ? Image.asset(
-                                        "assets/images/placeholder.png")
-                                    : Image.memory(src),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(14.0),
-                                ),
-                              ))
-                          .toList(),
-                      /*[
-                          Container(
+                    appointmentController.imgList.length != 0
+                        ? CarouselSlider(
+                            items: appointmentController.imgList
+                                .map((src) => Container(
+                                      margin: EdgeInsets.all(3.0),
+                                      child: Image.memory(src),
+                                      decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(14.0),
+                                      ),
+                                    ))
+                                .toList(),
+                            options: CarouselOptions(
+                              height: 180.0,
+                              enlargeCenterPage: true,
+                              autoPlay: true,
+                              aspectRatio: 11 / 9,
+                              autoPlayCurve: Curves.decelerate,
+                              enableInfiniteScroll: true,
+                              autoPlayAnimationDuration:
+                                  Duration(milliseconds: 800),
+                              viewportFraction: 0.8,
+                            ),
+                          )
+                        : Container(
                             margin: EdgeInsets.all(3.0),
+                            child: Image.asset(
+                              "assets/images/default_banner.jpg",
+                              fit: BoxFit.cover,
+                              height: 200,
+                              width: MediaQuery.of(context).size.width,
+                            ),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(14.0),
-                              image: DecorationImage(
-                                image:
-                                    AssetImage("assets/images/location_one.png"),
-                                fit: BoxFit.cover,
-                              ),
                             ),
                           ),
-                          Container(
-                            margin: EdgeInsets.all(3.0),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(14.0),
-                              image: DecorationImage(
-                                image:
-                                    AssetImage("assets/images/location_two.png"),
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                          Container(
-                            margin: EdgeInsets.all(3.0),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(14.0),
-                              image: DecorationImage(
-                                image: AssetImage(
-                                    "assets/images/location_three.png"),
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                        ],*/
-                      options: CarouselOptions(
-                        height: 180.0,
-                        enlargeCenterPage: true,
-                        autoPlay: true,
-                        aspectRatio: 11 / 9,
-                        autoPlayCurve: Curves.decelerate,
-                        enableInfiniteScroll: true,
-                        autoPlayAnimationDuration: Duration(milliseconds: 800),
-                        viewportFraction: 0.8,
-                      ),
-                    ),
                     SizedBox(
                       height: 20,
                     ),
@@ -423,42 +400,55 @@ class _HomeTemplateState extends State<HomeTemplate> {
                                   ],
                                 ),
 
-                                SizedBox(
-                                  height: 400,
-                                  child: ListView.builder(
-                                      itemCount: appointmentController
-                                          .saleVehicle.data?.length,
-                                      itemBuilder: (ctx, i) {
-                                        return Container(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: GestureDetector(
-                                            onTap: () {
-                                              Get.to(
-                                                  () =>
-                                                      SellingVehicleDetailsScreen(),
-                                                  arguments: [
-                                                    appointmentController
-                                                        .saleVehicle.data![i]
-                                                  ]);
-                                            },
-                                            child: CampaignCardView(
-                                              title:
-                                                  "${appointmentController.saleVehicle.data![i].brand} ${appointmentController.saleVehicle.data![i].model}  ${appointmentController.saleVehicle.data![i].manufacturedYear}",
-                                              imgUrl: appointmentController
-                                                  .saleVehicle
-                                                  .data![i]
-                                                  .thumbnail,
-                                              location:
-                                                  "${appointmentController.saleVehicle.data![i].city}",
-                                              price:
-                                                  "${appointmentController.saleVehicle.data![i].price}",
-                                              distance:
-                                                  "${appointmentController.saleVehicle.data![i].mileage}",
-                                            ),
-                                          ),
-                                        );
-                                      }),
-                                )
+                                appointmentController.saleVehicle.data == null
+                                    ? Container(
+                                        padding:
+                                            EdgeInsets.symmetric(vertical: 150),
+                                        child: Text(
+                                          "No Data Available",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 18),
+                                        ))
+                                    : SizedBox(
+                                        height: 400,
+                                        child: ListView.builder(
+                                            itemCount: appointmentController
+                                                .saleVehicle.data?.length,
+                                            itemBuilder: (ctx, i) {
+                                              return Container(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: GestureDetector(
+                                                  onTap: () {
+                                                    Get.to(
+                                                        () =>
+                                                            SellingVehicleDetailsScreen(),
+                                                        arguments: [
+                                                          appointmentController
+                                                              .saleVehicle
+                                                              .data![i]
+                                                        ]);
+                                                  },
+                                                  child: CampaignCardView(
+                                                    title:
+                                                        "${appointmentController.saleVehicle.data![i].brand} ${appointmentController.saleVehicle.data![i].model}  ${appointmentController.saleVehicle.data![i].manufacturedYear}",
+                                                    imgUrl:
+                                                        appointmentController
+                                                            .saleVehicle
+                                                            .data![i]
+                                                            .thumbnail,
+                                                    location:
+                                                        "${appointmentController.saleVehicle.data![i].city}",
+                                                    price:
+                                                        "${appointmentController.saleVehicle.data![i].price}",
+                                                    distance:
+                                                        "${appointmentController.saleVehicle.data![i].mileage}",
+                                                  ),
+                                                ),
+                                              );
+                                            }),
+                                      )
                               ],
                             ),
                           ),

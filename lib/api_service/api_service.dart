@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:http/http.dart' as http;
 
 class ApiService {
@@ -35,6 +33,9 @@ class ApiService {
       String? fcmToken}) async {
     print(
         "fcm token register ------------------------------------------------->$fcmToken");
+    print("fcm------------------------------------------------->$token");
+    print("userId ------------------------------------------------->$userId");
+
     var data = {
       "first_name": fName,
       "last_name": lName,
@@ -44,6 +45,8 @@ class ApiService {
       "vehicle_number": vehicleNo,
       "fcm_token": fcmToken
     };
+
+    print(data);
 
     var header = {"Accept": "application/json", "Authorization": token};
     var url = Uri.https(API_BASE_URL, "/customer/register/$userId");
@@ -231,14 +234,13 @@ class ApiService {
     required String contactNo,
   }) async {
     var header = {"Accept": "application/json", "Authorization": token};
-    List<String> imgList = [];
+    /*List<String> imgList = [];
     imgList.add(baseImage);
 
-    var json = jsonEncode(imgList);
+    var json = jsonEncode(imgList);*/
 
     print("------------------------>$token");
     print("------------------------>$vehicleId");
-    print(json);
 
     var data = {
       "vehicle_id": vehicleId,
@@ -254,7 +256,7 @@ class ApiService {
       "city": city,
       "price": price,
       "contact_number": contactNo,
-      "image_arr": jsonEncode(imgList)
+      "thumbnail": baseImage
     };
     var url = Uri.https(API_BASE_URL, "/advertisement/create/");
     var response = await http.post(url, headers: header, body: data);

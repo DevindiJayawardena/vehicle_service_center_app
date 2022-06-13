@@ -302,10 +302,7 @@ class AppointmentController extends GetxController {
             imgList.add(_byteImage);
           });
         } else {
-          CustomSnackBar.buildSnackBar(
-              title: "Alert",
-              message: decodedData['message'],
-              bgColor: AppColors.appColorBlack);
+          print("_________________________>carousel data not found");
         }
       } else {
         CustomSnackBar.buildSnackBar(
@@ -328,16 +325,17 @@ class AppointmentController extends GetxController {
         var response = await ApiService().getAllSaleVehicles(token: token);
         if (response.statusCode == 200) {
           Map<String, dynamic> decodedData = jsonDecode(response.body);
-
+          print("------------------>sale vehicles");
+          print(response.body);
           if (decodedData['success']) {
-            print("------------------>response image");
             print(response.body);
             saleVehicle = SaleVehicle.fromJson(decodedData);
           } else {
-            CustomSnackBar.buildSnackBar(
+            print(decodedData['message']);
+            /*CustomSnackBar.buildSnackBar(
                 title: "Alert",
                 message: decodedData['message'],
-                bgColor: AppColors.appColorBlack);
+                bgColor: AppColors.appColorBlack);*/
           }
         } else {
           CustomSnackBar.buildSnackBar(

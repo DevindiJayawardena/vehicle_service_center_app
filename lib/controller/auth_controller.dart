@@ -39,16 +39,17 @@ class AuthController extends GetxController {
         var response =
             await ApiService().customerLoginApi(email, password, fcmToken);
         Get.back();
-
+        print("------------>res");
+        print(response.body);
         if (response.statusCode == 200) {
           Map<String, dynamic> decodedData = jsonDecode(response.body);
           if (decodedData['success']) {
-            userBox.write('token', decodedData['tokenObject']['token']);
-            userBox.write('is_complete',
-                decodedData['tokenObject']['sub']['is_completed']);
-            userBox.write('id', decodedData['tokenObject']['sub']['id']);
-            userBox.write('email', decodedData['tokenObject']['sub']['email']);
-
+            print("ok");
+            userBox.write('token', decodedData['token']['token']);
+            userBox.write(
+                'is_complete', decodedData['token']['sub']['is_completed']);
+            userBox.write('id', decodedData['token']['sub']['id']);
+            userBox.write('email', decodedData['token']['sub']['email']);
             Get.off(() => HomeScreen());
           } else {
             CustomSnackBar.buildSnackBar(
@@ -70,6 +71,8 @@ class AuthController extends GetxController {
       }
     } catch (e) {
       Get.back();
+      print("------------>$e");
+
       CustomSnackBar.buildSnackBar(
           title: "Alert", message: "Something went wrong");
     }
@@ -182,7 +185,10 @@ class AuthController extends GetxController {
             cNo: cNo,
             fcmToken: fcmToken);
         Get.back();
+        print("register response------------------------>");
+        print(response.body);
         var decodedResponse = jsonDecode(response.body);
+        print("register response------------------------>");
         print(decodedResponse);
         if (response.statusCode == 200) {
           if (decodedResponse["success"]) {
