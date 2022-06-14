@@ -7,7 +7,6 @@ import 'package:vehicle_service_center_app/controller/vehicle_sale_controller.da
 
 import '../../../const/constants.dart';
 import '../../../const/widget_size.dart';
-import '../../../screens/main/home_screen.dart';
 import '../../molecules/buttons/filled_rounded_button.dart';
 import '../../molecules/containers/campaign_card_view_for_bill.dart';
 import '../../molecules/containers/drawer.dart';
@@ -108,7 +107,9 @@ class _MyBillsTemplateState extends State<MyBillsTemplate> {
                   clickEvent: checkBillAvailable()
                       ? () {
                           //Get.toNamed(Routes.AD_PACKAGE);
-                          vehicleSaleController.addRate(rate: rating);
+                          paymentController.addRate(
+                            rate: rating,
+                          );
                         }
                       : () {}),
             ),
@@ -137,11 +138,7 @@ class _MyBillsTemplateState extends State<MyBillsTemplate> {
                   ElevatedButton(
                     onPressed: () {
                       if (myBill.hasData("total")) {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const HomeScreen()),
-                        );
+                        paymentController.addCashPayment();
                       }
                     },
                     child: Text(

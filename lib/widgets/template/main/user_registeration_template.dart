@@ -36,10 +36,6 @@ class _UserRegistrationTemplateState extends State<UserRegistrationTemplate> {
 
   TextEditingController _nicNoController = TextEditingController();
 
-  GlobalKey<FormState> _vehicleTypeKey = GlobalKey<FormState>();
-
-  TextEditingController _vehicleTypeController = TextEditingController();
-
   GlobalKey<FormState> _vehicleNoKey = GlobalKey<FormState>();
 
   TextEditingController _vehicleNoController = TextEditingController();

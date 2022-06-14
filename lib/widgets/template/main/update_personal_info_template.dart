@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:vehicle_service_center_app/const/custom_snack_bar.dart';
 import 'package:vehicle_service_center_app/controller/profile_controller.dart';
 
@@ -19,9 +20,15 @@ class UpdatePersonalInfoTemplate extends StatelessWidget {
   TextEditingController nicController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController rePasswordController = TextEditingController();
-
+  final userBox = GetStorage('userBox');
   @override
   Widget build(BuildContext context) {
+    fNameController.text = userBox.read("fName");
+    lNameController.text = userBox.read("lName");
+    emailController.text = userBox.read("email");
+    phnController.text = userBox.read("phnNo");
+    nicController.text = userBox.read("nic");
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Update Profile Info"),

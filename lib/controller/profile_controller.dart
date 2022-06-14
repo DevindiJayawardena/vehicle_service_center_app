@@ -43,6 +43,11 @@ class ProfileController extends GetxController {
           Map<String, dynamic> decodedData = jsonDecode(response.body);
           print(decodedData);
           if (decodedData['success']) {
+            userBox.write("fName", fName);
+            userBox.write("lName", lName);
+            userBox.write("phnNo", phnNo);
+            userBox.write("nic", nic);
+            userBox.write("email", email);
             Get.offAll(() => HomeScreen());
             CustomSnackBar.buildSnackBar(
                 title: "Success", message: decodedData['message']);

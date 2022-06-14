@@ -139,9 +139,9 @@ class _SignUpTemplateState extends State<SignUpTemplate> {
                             validator: MultiValidator([
                               RequiredValidator(
                                   errorText: "Password is Required"),
-                              MinLengthValidator(6,
+                              MinLengthValidator(8,
                                   errorText:
-                                      "password must be at least 6 characters")
+                                      "password must be at least 8 characters")
                             ]),
                             iconData: Icons.security,
                             hintText: "Password",

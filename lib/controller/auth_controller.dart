@@ -196,6 +196,10 @@ class AuthController extends GetxController {
             userBox.write('is_complete',
                 decodedResponse['tokenObject']['sub']['is_completed']);
             userBox.write('id', decodedResponse['tokenObject']['sub']['id']);
+            userBox.write("fName", fName);
+            userBox.write("lName", lName);
+            userBox.write("phnNo", cNo);
+            userBox.write("nic", nic);
 
             Get.off(() => HomeScreen());
           } else {

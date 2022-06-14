@@ -133,7 +133,7 @@ class _LoginTemplateState extends State<LoginTemplate> {
                             validator: MultiValidator([
                               RequiredValidator(
                                   errorText: "Password is Required"),
-                              MinLengthValidator(6,
+                              MinLengthValidator(8,
                                   errorText:
                                       "password must be at least 8 characters")
                             ]),

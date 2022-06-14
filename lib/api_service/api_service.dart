@@ -172,6 +172,7 @@ class ApiService {
     var data = {
       "first_name": fName,
       "last_name": lName,
+      "email": email,
       "password": password,
       "contact_number": phnNo,
       "nic_number": nic,
@@ -292,10 +293,12 @@ class ApiService {
     required String serviceId,
   }) async {
     print("------------------->RATE$rate");
+    print("------------------->token$token");
+    print("------------------->si$serviceId");
     var header = {"Accept": "application/json", "Authorization": token};
-
-    var url = Uri.https(API_BASE_URL, "/service/addRating/$rate");
-    var response = await http.put(url, headers: header);
+    var data = {"rating": rate};
+    var url = Uri.https(API_BASE_URL, "/service/addRating/$serviceId");
+    var response = await http.put(url, headers: header, body: data);
 
     return response;
   }
@@ -310,6 +313,17 @@ class ApiService {
     var data = {"price": total, "payment_method": paymentType};
     var url = Uri.https(API_BASE_URL, "/service/pay/$serviceId");
     var response = await http.put(url, headers: header, body: data);
+
+    return response;
+  }
+
+  Future<http.Response> addCashPayment({
+    required String token,
+    required String serviceId,
+  }) async {
+    var header = {"Accept": "application/json", "Authorization": token};
+    var url = Uri.https(API_BASE_URL, "/service/cashPaymentMethod/$serviceId");
+    var response = await http.get(url, headers: header);
 
     return response;
   }
