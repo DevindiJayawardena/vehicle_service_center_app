@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
+import 'package:vehicle_service_center_app/const/custom_snack_bar.dart';
 import 'package:vehicle_service_center_app/controller/appoinment_controller.dart';
 
 import '../../../const/constants.dart';
@@ -149,8 +150,7 @@ class _AddAppointmentTemplateState extends State<AddAppointmentTemplate> {
                   onPressed: () => _selectDate(context),
                   child: Text('Select date'),
                 ),
-                Text(
-                    "${currentDate.year} - ${currentDate.month + 1} - ${currentDate.day}"), /* ---------methana display krnna date eka------- */
+                Text(selectedTime),
               ],
             ),
 
@@ -298,20 +298,38 @@ class _AddAppointmentTemplateState extends State<AddAppointmentTemplate> {
                 ElevatedButton(
                   onPressed: () {
                     if (widget.isEdit) {
-                      appointmentController.updateAppointment(
-                          token,
-                          widget.appointmentId!,
-                          selectedVehicle,
-                          selectedServiceType,
-                          selectedTimeSlot,
-                          selectedTime);
+                      if (selectedVehicle.isNotEmpty &&
+                          selectedServiceType.isNotEmpty &&
+                          selectedTimeSlot.isNotEmpty &&
+                          selectedTime.isNotEmpty) {
+                        appointmentController.updateAppointment(
+                            token,
+                            widget.appointmentId!,
+                            selectedVehicle,
+                            selectedServiceType,
+                            selectedTimeSlot,
+                            selectedTime);
+                      } else {
+                        CustomSnackBar.buildSnackBar(
+                            title: "Alert",
+                            message: "Please Fill out All Fields");
+                      }
                     } else {
-                      appointmentController.createAppointment(
-                          token,
-                          selectedVehicle,
-                          selectedServiceType,
-                          selectedTimeSlot,
-                          selectedTime);
+                      if (selectedVehicle.isNotEmpty &&
+                          selectedServiceType.isNotEmpty &&
+                          selectedTimeSlot.isNotEmpty &&
+                          selectedTime.isNotEmpty) {
+                        appointmentController.createAppointment(
+                            token,
+                            selectedVehicle,
+                            selectedServiceType,
+                            selectedTimeSlot,
+                            selectedTime);
+                      } else {
+                        CustomSnackBar.buildSnackBar(
+                            title: "Alert",
+                            message: "Please Fill out All Fields");
+                      }
                     }
                   },
                   style: ButtonStyle(

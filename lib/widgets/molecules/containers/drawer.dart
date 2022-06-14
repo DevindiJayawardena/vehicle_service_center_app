@@ -274,6 +274,13 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                     ),
                     onTap: () {
                       userBox.remove("token");
+                      userBox.remove("id");
+                      userBox.remove("fName");
+                      userBox.remove("lName");
+                      userBox.remove("phnNo");
+                      userBox.remove("nic");
+                      userBox.remove("email");
+                      userBox.remove("is_complete");
                       Get.offAll(() => LoginScreen());
                       //Navigator.pop(context);
                     },

@@ -206,11 +206,12 @@ class AppointmentController extends GetxController {
     }
   }
 
-  void getAllAppointment(String token) async {
+  void getAllAppointment(String token, String custId) async {
     try {
       if (networkController.connectionStatus.value != -1) {
         CustomDialogBox.buildDialogBox();
-        var response = await ApiService().getAllAppointmentApi(token: token);
+        var response = await ApiService()
+            .getAllAppointmentApi(token: token, custId: custId);
         Get.back();
         if (response.statusCode == 200) {
           Map<String, dynamic> decodedData = jsonDecode(response.body);

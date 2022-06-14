@@ -8,6 +8,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:vehicle_service_center_app/controller/network_controller.dart';
 import 'package:vehicle_service_center_app/model/custmer_vehicle.dart';
+import 'package:vehicle_service_center_app/screens/main/home_screen.dart';
 
 import '../api_service/api_service.dart';
 import '../const/app_colors.dart';
@@ -29,7 +30,7 @@ class VehicleSaleController extends GetxController {
       if (networkController.connectionStatus.value != -1) {
         CustomDialogBox.buildDialogBox();
         var response =
-            await ApiService().viewCustomerVehiclesApi(token: token, id: id);
+            await ApiService().viewCustomerVehiclesApi(token: token, id: "$id");
         Get.back();
         print(response.body);
         if (response.statusCode == 200) {
@@ -118,6 +119,7 @@ class VehicleSaleController extends GetxController {
 
           if (decodedData['success']) {
             print("----------------->>>> success");
+            Get.offAll(HomeScreen());
             print(decodedData);
           } else {
             CustomSnackBar.buildSnackBar(

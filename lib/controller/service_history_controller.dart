@@ -32,7 +32,7 @@ class ServiceHistoryController extends GetxController {
     try {
       if (networkController.connectionStatus.value != -1) {
         CustomDialogBox.buildDialogBox();
-        var response = await ApiService().getCustomerVehiclesApi(token, id);
+        var response = await ApiService().getCustomerVehiclesApi(token, "$id");
         //Get.back();
         print("car list--------------------->");
         print(response.body);

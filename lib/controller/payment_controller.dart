@@ -99,7 +99,7 @@ class PaymentController extends GetxController {
         var response = await ApiService().submitPayment(
             token: token,
             total: total,
-            paymentType: "Card Payment",
+            paymentType: "Card",
             serviceId: serviceId);
         Get.back();
         print("payment body--------------------->");

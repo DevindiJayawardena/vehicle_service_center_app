@@ -132,10 +132,12 @@ class ApiService {
     return response;
   }
 
-  Future<http.Response> getAllAppointmentApi({required String token}) async {
+  Future<http.Response> getAllAppointmentApi(
+      {required String token, required String custId}) async {
     var header = {"Accept": "application/json", "Authorization": token};
 
-    var url = Uri.https(API_BASE_URL, "/appointment/getAllAppointments");
+    var url =
+        Uri.https(API_BASE_URL, "/appointment/getAppointmentById/$custId");
     var response = await http.get(url, headers: header);
     return response;
   }

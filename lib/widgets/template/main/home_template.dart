@@ -200,10 +200,12 @@ class _HomeTemplateState extends State<HomeTemplate> {
                                                   ),
                                                 ),
                                                 onPressed: () {
+                                                  print(
+                                                      "----------------->cliked add appointements");
                                                   appointmentController
                                                       .addAppointment(
                                                           token: token,
-                                                          id: id,
+                                                          id: "$id",
                                                           isEdit: false);
                                                 },
                                               ),
@@ -270,7 +272,8 @@ class _HomeTemplateState extends State<HomeTemplate> {
                                                           ViewAppointmentScreen(),
                                                 ));*/
                                                   appointmentController
-                                                      .getAllAppointment(token);
+                                                      .getAllAppointment(
+                                                          token, "$id");
                                                 },
                                               ),
                                             ],

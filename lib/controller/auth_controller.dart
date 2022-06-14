@@ -50,6 +50,11 @@ class AuthController extends GetxController {
                 'is_complete', decodedData['token']['sub']['is_completed']);
             userBox.write('id', decodedData['token']['sub']['id']);
             userBox.write('email', decodedData['token']['sub']['email']);
+
+            userBox.write("fName", decodedData['token']['sub']['first_name']);
+            userBox.write("lName", decodedData['token']['sub']['last_name']);
+            userBox.write("phnNo", "");
+            userBox.write("nic", "");
             Get.off(() => HomeScreen());
           } else {
             CustomSnackBar.buildSnackBar(
