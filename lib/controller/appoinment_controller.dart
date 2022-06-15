@@ -89,8 +89,8 @@ class AppointmentController extends GetxController {
         }
       } else {
         CustomSnackBar.buildSnackBar(
-            title: "Connection Error",
-            message: "Please Check your Internet",
+            title: "Alert".tr,
+            message: "Please Check your Internet".tr,
             bgColor: AppColors.appColorBlack);
       }
     } catch (e) {
@@ -143,8 +143,8 @@ class AppointmentController extends GetxController {
         }
       } else {
         CustomSnackBar.buildSnackBar(
-            title: "Connection Error",
-            message: "Please Check your Internet",
+            title: "Alert".tr,
+            message: "Please Check your Internet".tr,
             bgColor: AppColors.appColorBlack);
       }
     } catch (e) {
@@ -195,14 +195,14 @@ class AppointmentController extends GetxController {
         }
       } else {
         CustomSnackBar.buildSnackBar(
-            title: "Connection Error",
-            message: "Please Check your Internet",
+            title: "Alert".tr,
+            message: "Please Check your Internet".tr,
             bgColor: AppColors.appColorBlack);
       }
     } catch (e) {
       Get.back();
       CustomSnackBar.buildSnackBar(
-          title: "Alert", message: "Something went wrong");
+          title: "Alert".tr, message: "Something went wrong".tr);
     }
   }
 
@@ -233,14 +233,14 @@ class AppointmentController extends GetxController {
         }
       } else {
         CustomSnackBar.buildSnackBar(
-            title: "Connection Error",
-            message: "Please Check your Internet",
+            title: "Alert".tr,
+            message: "Please Check your Internet".tr,
             bgColor: AppColors.appColorBlack);
       }
     } catch (e) {
       Get.back();
       CustomSnackBar.buildSnackBar(
-          title: "Alert", message: "Something went wrong");
+          title: "Alert".tr, message: "Something went wrong".tr);
     }
   }
 
@@ -276,14 +276,14 @@ class AppointmentController extends GetxController {
         }
       } else {
         CustomSnackBar.buildSnackBar(
-            title: "Connection Error",
-            message: "Please Check your Internet",
+            title: "Alert".tr,
+            message: "Please Check your Internet".tr,
             bgColor: AppColors.appColorBlack);
       }
     } catch (e) {
       Get.back();
       CustomSnackBar.buildSnackBar(
-          title: "Alert", message: "Something went wrong");
+          title: "Alert".tr, message: "Something went wrong".tr);
     }
   }
 
@@ -313,8 +313,8 @@ class AppointmentController extends GetxController {
       }
     } else {
       CustomSnackBar.buildSnackBar(
-          title: "Connection Error",
-          message: "Please Check your Internet",
+          title: "Alert".tr,
+          message: "Please Check your Internet".tr,
           bgColor: AppColors.appColorBlack);
     }
   }
@@ -346,8 +346,8 @@ class AppointmentController extends GetxController {
         }
       } else {
         CustomSnackBar.buildSnackBar(
-            title: "Connection Error",
-            message: "Please Check your Internet",
+            title: "Alert".tr,
+            message: "Please Check your Internet".tr,
             bgColor: AppColors.appColorBlack);
       }
     } catch (e) {

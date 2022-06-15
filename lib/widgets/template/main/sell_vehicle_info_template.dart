@@ -63,7 +63,7 @@ class _SellVehicleInfoTemplateState extends State<SellVehicleInfoTemplate> {
     typeController.text = widget.vehicleType;
     return Scaffold(
       appBar: AppBar(
-        title: Text("Sell your Vehicle"),
+        title: Text("For Sale".tr),
         backgroundColor: Constants.appColorAmber,
       ),
       drawer: DrawerWidget(),
@@ -76,7 +76,7 @@ class _SellVehicleInfoTemplateState extends State<SellVehicleInfoTemplate> {
 
             Center(
               child: Text(
-                'Fill the Vehicle Details',
+                'Fill the Vehicle Details'.tr,
                 style: TextStyle(
                   color: Constants.appColorAmberMoreDark,
                   fontSize: 16,
@@ -289,7 +289,7 @@ class _SellVehicleInfoTemplateState extends State<SellVehicleInfoTemplate> {
               onPressed: () {
                 openImages();
               },
-              child: Text("Add Photos"),
+              child: Text("Add Photos".tr),
               style: ElevatedButton.styleFrom(
                 primary: Constants.appColorAmberMoreDark,
               ),
@@ -438,7 +438,7 @@ class _SellVehicleInfoTemplateState extends State<SellVehicleInfoTemplate> {
                         }
                       },
                       child: Text(
-                        'SAVE & POST',
+                        'SAVE & POST'.tr,
                       ),
                       style: ElevatedButton.styleFrom(
                         primary: Colors.green,

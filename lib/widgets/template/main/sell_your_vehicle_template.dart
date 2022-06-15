@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:vehicle_service_center_app/model/custmer_vehicle.dart';
 
 import '../../../const/constants.dart';
@@ -20,7 +21,7 @@ class _SellYourVehicleTemplateState extends State<SellYourVehicleTemplate> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Your Vehicles"),
+        title: Text("Your Vehicles".tr),
         backgroundColor: Constants.appColorAmber,
       ),
       drawer: DrawerWidget(),
@@ -33,7 +34,7 @@ class _SellYourVehicleTemplateState extends State<SellYourVehicleTemplate> {
             Padding(
               padding: EdgeInsets.all(10),
               child: Text(
-                "Your Registered Vehicles",
+                "Your Registered Vehicles".tr,
                 style: TextStyle(
                   color: Constants.appColorAmberMoreDark,
                   fontSize: 16,

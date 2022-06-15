@@ -43,7 +43,7 @@ class _ViewServiceHistoryTemplateState
     });
     return Scaffold(
       appBar: AppBar(
-        title: Text("Service History"),
+        title: Text("HISTORY OF SERVICES".tr),
         backgroundColor: Constants.appColorAmber,
       ),
       drawer: DrawerWidget(),
@@ -56,7 +56,7 @@ class _ViewServiceHistoryTemplateState
             Center(
                 child: AppDropDownMenu(
               locationList: vehicleMap,
-              label: "Vehicle No",
+              label: "Vehicle No".tr,
               hintText: vehicleIdList[0],
               onSelected: (vehicleNo) {
                 selectedVehicleNo = vehicleNo;

@@ -83,7 +83,7 @@ class CampaignCardViewForSellingVehicleInfo extends StatelessWidget {
                                                     const SellVehicleInfoScreen()),
                                           );*/
                                         },
-                                        child: Text('For Sale'),
+                                        child: Text('For Sale'.tr),
                                       ),
                                     )
                                   ],

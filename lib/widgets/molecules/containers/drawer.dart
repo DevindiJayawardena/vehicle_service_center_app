@@ -8,7 +8,6 @@ import 'package:vehicle_service_center_app/controller/profile_controller.dart';
 import '../../../const/constants.dart';
 import '../../../controller/language_controller.dart';
 import '../../../screens/auth/login_screen.dart';
-import '../../../screens/main/chatbot_screen.dart';
 import '../../../screens/main/contact_us_screen.dart';
 import '../../../screens/main/home_screen.dart';
 import '../../../screens/main/my_bills_screen.dart';
@@ -95,8 +94,8 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                       Icons.home_outlined,
                       color: Constants.appColorAmberDark,
                     ),
-                    title: const Text(
-                      'Home',
+                    title: Text(
+                      'home'.tr,
                       style: TextStyle(
                         color: Constants.appColorBlack,
                         fontWeight: FontWeight.w600,
@@ -116,8 +115,8 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                       Icons.settings_outlined,
                       color: Constants.appColorAmberDark,
                     ),
-                    title: const Text(
-                      'Profile Settings',
+                    title: Text(
+                      'Profile'.tr,
                       style: TextStyle(
                         color: Constants.appColorBlack,
                         fontWeight: FontWeight.w600,
@@ -138,8 +137,8 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                       Icons.car_repair_outlined,
                       color: Constants.appColorAmberDark,
                     ),
-                    title: const Text(
-                      'Vehicle Info',
+                    title: Text(
+                      "Vehicle info".tr,
                       style: TextStyle(
                         color: Constants.appColorBlack,
                         fontWeight: FontWeight.w600,
@@ -147,27 +146,6 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                     ),
                     onTap: () {
                       profileController.viewOrAddVehicle();
-                    },
-                  ),
-                  Divider(),
-                  ListTile(
-                    leading: Icon(
-                      Icons.chat_outlined,
-                      color: Constants.appColorAmberDark,
-                    ),
-                    title: const Text(
-                      'Ask from Bot',
-                      style: TextStyle(
-                        color: Constants.appColorBlack,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const ChatbotScreen()),
-                      );
                     },
                   ),
                   Divider(),
@@ -200,8 +178,8 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                       Icons.summarize_outlined,
                       color: Constants.appColorAmberDark,
                     ),
-                    title: const Text(
-                      'My Bills',
+                    title: Text(
+                      'My Bills'.tr,
                       style: TextStyle(
                         color: Constants.appColorBlack,
                         fontWeight: FontWeight.w600,
@@ -222,8 +200,8 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                       Icons.phone,
                       color: Constants.appColorAmberDark,
                     ),
-                    title: const Text(
-                      'Contact Us',
+                    title: Text(
+                      'Contact Us'.tr,
                       style: TextStyle(
                         color: Constants.appColorBlack,
                         fontWeight: FontWeight.w600,
@@ -244,8 +222,8 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                       Icons.privacy_tip_outlined,
                       color: Constants.appColorAmberDark,
                     ),
-                    title: const Text(
-                      'Privacy Policy',
+                    title: Text(
+                      'Privacy Policy'.tr,
                       style: TextStyle(
                         color: Constants.appColorBlack,
                         fontWeight: FontWeight.w600,
@@ -265,8 +243,8 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                       Icons.privacy_tip_outlined,
                       color: Constants.appColorAmberDark,
                     ),
-                    title: const Text(
-                      'Logout',
+                    title: Text(
+                      'Logout'.tr,
                       style: TextStyle(
                         color: Constants.appColorBlack,
                         fontWeight: FontWeight.w600,

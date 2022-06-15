@@ -45,7 +45,7 @@ class _MyBillsTemplateState extends State<MyBillsTemplate> {
     PaymentController paymentController = Get.put(PaymentController());
     return Scaffold(
       appBar: AppBar(
-        title: Text("Your Bill & Feedback"),
+        title: Text("Your Bill & Feedback".tr),
         backgroundColor: Constants.appColorAmber,
       ),
       drawer: DrawerWidget(),
@@ -64,8 +64,8 @@ class _MyBillsTemplateState extends State<MyBillsTemplate> {
               height: 25,
             ),
 
-            const Text(
-              "Rate the Service",
+            Text(
+              "Rate the Service".tr,
               style: TextStyle(
                 color: Constants.appColorAmberDark,
                 fontSize: 20,
@@ -101,7 +101,7 @@ class _MyBillsTemplateState extends State<MyBillsTemplate> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: FilledRoundedButton(
-                  text: "Save",
+                  text: "Save".tr,
                   color: Constants.appColorAmberDark,
                   widgetSize: WidgetSize.maxSize,
                   clickEvent: checkBillAvailable()
@@ -118,8 +118,8 @@ class _MyBillsTemplateState extends State<MyBillsTemplate> {
               height: 65,
             ),
 
-            const Text(
-              "Select Your Payment Method",
+            Text(
+              "Select Your Payment Method".tr,
               style: TextStyle(
                 color: Constants.appColorAmberDark,
                 fontSize: 20,
@@ -142,7 +142,7 @@ class _MyBillsTemplateState extends State<MyBillsTemplate> {
                       }
                     },
                     child: Text(
-                      'Cash Payment',
+                      'Cash Payment'.tr,
                     ),
                     style: ElevatedButton.styleFrom(
                       primary: Constants.appColorRed,
@@ -162,7 +162,7 @@ class _MyBillsTemplateState extends State<MyBillsTemplate> {
                       }
                     },
                     child: Text(
-                      'Online Payment',
+                      'Online Payment'.tr,
                     ),
                     style: ElevatedButton.styleFrom(
                       primary: Colors.green,

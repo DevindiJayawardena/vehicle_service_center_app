@@ -112,7 +112,7 @@ class PaymentController extends GetxController {
             print("payment success--------------------->");
             print(decodedData);
             Get.offAll(HomeScreen());
-            Get.snackbar('Payment', 'Payment Successful',
+            Get.snackbar('Alert'.tr, 'Payment Successful'.tr,
                 snackPosition: SnackPosition.BOTTOM,
                 backgroundColor: Colors.black,
                 colorText: Colors.white,
@@ -132,15 +132,15 @@ class PaymentController extends GetxController {
         }
       } else {
         CustomSnackBar.buildSnackBar(
-            title: "Connection Error",
-            message: "Please Check your Internet",
+            title: "Alert".tr,
+            message: "Please Check your Internet".tr,
             bgColor: AppColors.appColorBlack);
       }
     } catch (e) {
       Get.back();
       print(e);
       CustomSnackBar.buildSnackBar(
-          title: "Alert", message: "Something went wrong");
+          title: "Alert".tr, message: "Something went wrong".tr);
     }
   }
 
@@ -178,8 +178,8 @@ class PaymentController extends GetxController {
         }
       } else {
         CustomSnackBar.buildSnackBar(
-            title: "Connection Error",
-            message: "Please Check your Internet",
+            title: "Alert".tr,
+            message: "Please Check your Internet".tr,
             bgColor: AppColors.appColorBlack);
       }
     } catch (e) {
@@ -187,7 +187,7 @@ class PaymentController extends GetxController {
       print("----------------->>>> success");
       print(e);
       CustomSnackBar.buildSnackBar(
-          title: "Alert", message: "Something went wrong");
+          title: "Alert".tr, message: "Something went wrong".tr);
     }
   }
 
@@ -225,8 +225,8 @@ class PaymentController extends GetxController {
         }
       } else {
         CustomSnackBar.buildSnackBar(
-            title: "Connection Error",
-            message: "Please Check your Internet",
+            title: "Alert".tr,
+            message: "Please Check your Internet".tr,
             bgColor: AppColors.appColorBlack);
       }
     } catch (e) {
@@ -234,7 +234,7 @@ class PaymentController extends GetxController {
       print("----------------->>>> success");
       print(e);
       CustomSnackBar.buildSnackBar(
-          title: "Alert", message: "Something went wrong");
+          title: "Alert".tr, message: "Something went wrong".tr);
     }
   }
 }

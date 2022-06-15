@@ -70,8 +70,8 @@ class AuthController extends GetxController {
         }
       } else {
         CustomSnackBar.buildSnackBar(
-            title: "Connection Error",
-            message: "Please Check your Internet",
+            title: "Alert".tr,
+            message: "Please Check your Internet".tr,
             bgColor: AppColors.appColorBlack);
       }
     } catch (e) {
@@ -79,7 +79,7 @@ class AuthController extends GetxController {
       print("------------>$e");
 
       CustomSnackBar.buildSnackBar(
-          title: "Alert", message: "Something went wrong");
+          title: "Alert".tr, message: "Something went wrong".tr);
     }
   }
 
@@ -154,13 +154,14 @@ class AuthController extends GetxController {
         }
       } else {
         CustomSnackBar.buildSnackBar(
-            title: "Connection Error",
-            message: "Please Check your Internet",
+            title: "Alert".tr,
+            message: "Please Check your Internet".tr,
             bgColor: AppColors.appColorBlack);
       }
     } catch (e) {
       print(e.toString());
-      CustomSnackBar.buildSnackBar(title: "Alert", message: "$e");
+      CustomSnackBar.buildSnackBar(
+          title: "Alert".tr, message: "Something went wrong".tr);
     }
   }
 
@@ -219,13 +220,14 @@ class AuthController extends GetxController {
         }
       } else {
         CustomSnackBar.buildSnackBar(
-            title: "Connection Error",
-            message: "Please Check your Internet",
+            title: "Alert".tr,
+            message: "Please Check your Internet".tr,
             bgColor: AppColors.appColorBlack);
       }
     } catch (e) {
       print(e.toString());
-      CustomSnackBar.buildSnackBar(title: "Alert", message: "$e");
+      CustomSnackBar.buildSnackBar(
+          title: "Alert".tr, message: "Something went wrong".tr);
     }
   }
 
@@ -254,14 +256,14 @@ class AuthController extends GetxController {
         }*/
       } else {
         CustomSnackBar.buildSnackBar(
-            title: "Connection Error",
-            message: "Please Check your Internet",
+            title: "Alert".tr,
+            message: "Please Check your Internet".tr,
             bgColor: AppColors.appColorBlack);
       }
     } catch (e) {
       Get.back();
       CustomSnackBar.buildSnackBar(
-          title: "Alert", message: "Something went wrong!");
+          title: "Alert".tr, message: "Something went wrong".tr);
     }
   }
 }

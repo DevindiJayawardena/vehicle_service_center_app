@@ -64,8 +64,8 @@ class _HomeTemplateState extends State<HomeTemplate> {
         builder: (BuildContext context, AsyncSnapshot<List<dynamic>> snapshot) {
           if (snapshot.hasError) {
             CustomSnackBar.buildSnackBar(
-                title: "Error",
-                message: "Something went wrong",
+                title: "Alert".tr,
+                message: "Something went wrong".tr,
                 bgColor: AppColors.appColorBlack);
             return Text(snapshot.error.toString());
           }
@@ -133,11 +133,11 @@ class _HomeTemplateState extends State<HomeTemplate> {
                       tabs: [
                         Tab(
                           icon: Icon(Icons.schedule_outlined),
-                          text: "Appointments",
+                          text: "Appointments".tr,
                         ),
                         Tab(
                           icon: Icon(Icons.sell_outlined),
-                          text: "Selling Vehicles",
+                          text: "Selling Vehicles".tr,
                         ),
                       ],
                     ),
@@ -192,16 +192,14 @@ class _HomeTemplateState extends State<HomeTemplate> {
                                                 width: 70,
                                               ),
                                               TextButton(
-                                                child: const Text(
-                                                  'ADD AN APPOINTMENT',
+                                                child: Text(
+                                                  'ADD AN APPOINTMENT'.tr,
                                                   style: TextStyle(
                                                     color: Colors.green,
                                                     fontWeight: FontWeight.bold,
                                                   ),
                                                 ),
                                                 onPressed: () {
-                                                  print(
-                                                      "----------------->cliked add appointements");
                                                   appointmentController
                                                       .addAppointment(
                                                           token: token,
@@ -256,8 +254,8 @@ class _HomeTemplateState extends State<HomeTemplate> {
                                                 width: 70,
                                               ),
                                               TextButton(
-                                                child: const Text(
-                                                  'VIEW APPOINTMENTS',
+                                                child: Text(
+                                                  'VIEW APPOINTMENTS'.tr,
                                                   style: TextStyle(
                                                     color: Colors.lightBlue,
                                                     fontWeight: FontWeight.bold,
@@ -323,8 +321,8 @@ class _HomeTemplateState extends State<HomeTemplate> {
                                                 width: 70,
                                               ),
                                               TextButton(
-                                                child: const Text(
-                                                  'HISTORY OF SERVICES',
+                                                child: Text(
+                                                  'HISTORY OF SERVICES'.tr,
                                                   style: TextStyle(
                                                     color: Colors.deepOrange,
                                                     fontWeight: FontWeight.bold,
@@ -362,7 +360,7 @@ class _HomeTemplateState extends State<HomeTemplate> {
                                         color: Constants.appColorAmberDark,
                                       ),
                                       label: Text(
-                                        "Sell your vehicle",
+                                        "Sell your vehicle".tr,
                                         style: TextStyle(
                                           color: Constants.appColorBlack,
                                           fontSize: 17,
@@ -392,7 +390,7 @@ class _HomeTemplateState extends State<HomeTemplate> {
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 18.0),
                                       child: Text(
-                                        'All Vehicles For Sale',
+                                        'All Vehicles For Sale'.tr,
                                         style: TextStyle(
                                           color: Constants.appColorBlack,
                                           fontSize: 13,

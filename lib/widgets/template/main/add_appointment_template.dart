@@ -80,7 +80,7 @@ class _AddAppointmentTemplateState extends State<AddAppointmentTemplate> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Add New Appointment"),
+        title: Text("ADD AN APPOINTMENT".tr),
         backgroundColor: Constants.appColorAmber,
       ),
       drawer: DrawerWidget(),
@@ -94,8 +94,8 @@ class _AddAppointmentTemplateState extends State<AddAppointmentTemplate> {
               padding: EdgeInsets.symmetric(horizontal: 50),
               child: AppDropDownMenu(
                 locationList: vehicleMap,
-                label: "Vehicle",
-                hintText: "Select Your Vehicle",
+                label: "Vehicle".tr,
+                hintText: "Select Your Vehicle".tr,
                 onSelected: (vehicle) {
                   selectedVehicle = vehicle;
                   print(selectedVehicle);
@@ -110,8 +110,8 @@ class _AddAppointmentTemplateState extends State<AddAppointmentTemplate> {
               padding: EdgeInsets.symmetric(horizontal: 50),
               child: AppDropDownMenu(
                 locationList: upgradeTypeMap,
-                label: "Service Type",
-                hintText: "Select",
+                label: "Service Type".tr,
+                hintText: "Select".tr,
                 onSelected: (serviceType) {
                   selectedServiceType = serviceType;
                   print(selectedServiceType);
@@ -127,7 +127,7 @@ class _AddAppointmentTemplateState extends State<AddAppointmentTemplate> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Text(
-                  "Appointment Date",
+                  "Appointment Date".tr,
                   style: TextStyle(
                     color: Constants.appColorAmberDark,
                     fontSize: 16,
@@ -148,7 +148,7 @@ class _AddAppointmentTemplateState extends State<AddAppointmentTemplate> {
               children: [
                 RaisedButton(
                   onPressed: () => _selectDate(context),
-                  child: Text('Select date'),
+                  child: Text('Select date'.tr),
                 ),
                 Text(selectedTime),
               ],
@@ -179,8 +179,8 @@ class _AddAppointmentTemplateState extends State<AddAppointmentTemplate> {
               padding: EdgeInsets.symmetric(horizontal: 50),
               child: AppDropDownMenu(
                 locationList: timeSlotMap,
-                label: "Time Slot",
-                hintText: "Select",
+                label: "Time Slot".tr,
+                hintText: "Select".tr,
                 onSelected: (serviceType) {
                   selectedTimeSlot = serviceType;
                 },
@@ -289,7 +289,7 @@ class _AddAppointmentTemplateState extends State<AddAppointmentTemplate> {
                     )),
                   ),
                   child: Text(
-                    "Cancel",
+                    "Cancel".tr,
                   ),
                 ),
                 SizedBox(
@@ -311,8 +311,8 @@ class _AddAppointmentTemplateState extends State<AddAppointmentTemplate> {
                             selectedTime);
                       } else {
                         CustomSnackBar.buildSnackBar(
-                            title: "Alert",
-                            message: "Please Fill out All Fields");
+                            title: "Alert".tr,
+                            message: "Please Fill out All Fields".tr);
                       }
                     } else {
                       if (selectedVehicle.isNotEmpty &&
@@ -327,8 +327,8 @@ class _AddAppointmentTemplateState extends State<AddAppointmentTemplate> {
                             selectedTime);
                       } else {
                         CustomSnackBar.buildSnackBar(
-                            title: "Alert",
-                            message: "Please Fill out All Fields");
+                            title: "Alert".tr,
+                            message: "Please Fill out All Fields".tr);
                       }
                     }
                   },
@@ -341,7 +341,7 @@ class _AddAppointmentTemplateState extends State<AddAppointmentTemplate> {
                     )),
                   ),
                   child: Text(
-                    widget.isEdit ? "Update" : "Confirm",
+                    widget.isEdit ? "Update".tr : "Confirm".tr,
                   ),
                 ),
               ],

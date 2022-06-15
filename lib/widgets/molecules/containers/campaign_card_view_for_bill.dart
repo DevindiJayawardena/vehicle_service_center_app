@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 import '../../../const/constants.dart';
@@ -190,7 +191,7 @@ class CampaignCardViewForBill extends StatelessWidget {
                         clipBehavior: Clip.antiAlias,
                         child: Center(
                           child: Text(
-                            "No Bills Yet",
+                            "No Bills Yet".tr,
                             style: TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.bold),
                           ),
