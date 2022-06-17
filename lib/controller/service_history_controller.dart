@@ -40,6 +40,8 @@ class ServiceHistoryController extends GetxController {
           Map<String, dynamic> decodedData = jsonDecode(response.body);
 
           if (decodedData['success']) {
+            print("---------------------------->this hit");
+            print("---------------------------->$decodedData");
             vehicles = Vehicles.fromJson(decodedData);
             if (vehicles.data!.isNotEmpty) {}
             vehicleInitialHistory(token, vehicles.data![0].id.toString());
@@ -160,12 +162,15 @@ class ServiceHistoryController extends GetxController {
         var response = await ApiService()
             .getServiceHistoryApi(token: token, vehicleId: initVehicleId);
         Get.back();
+        print("init history");
+        print(initVehicleId);
         print(response.body);
         if (response.statusCode == 200) {
           Map<String, dynamic> decodedData = jsonDecode(response.body);
 
           if (decodedData['success']) {
             serviceHistory.value = ServiceHistory.fromJson(decodedData);
+            print("initial history $decodedData");
             Get.to(() => ViewServiceHistoryScreen());
           } else {
             CustomSnackBar.buildSnackBar(

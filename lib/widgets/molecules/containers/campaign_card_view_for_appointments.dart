@@ -124,7 +124,7 @@ class CampaignCardViewForAppointments extends StatelessWidget {
                                       print(appointmentId);
                                       appointmentController.addAppointment(
                                           token: token,
-                                          id: id,
+                                          id: "$id",
                                           isEdit: true,
                                           appointmentId: appointmentId);
                                     }

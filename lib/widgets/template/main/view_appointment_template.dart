@@ -14,90 +14,52 @@ class ViewAppointmentTemplate extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Constants.appColorAmber,
-        elevation: 0,
-        title: Text("Your Appointments"),
-        // leading: IconButton(
-        //     onPressed: () {
-        //       print("notification");
-        //     },
-        //     icon: Icon(
-        //       Icons.view_headline,
-        //       color: Constants.appColorAmber,
-        //     )),
-        // actions: [],
-      ),
-      drawer: DrawerWidget(),
-      body: SingleChildScrollView(
-        child: SizedBox(
-          height: 800,
-          child: ListView.builder(
-              itemCount: appointmentController.appointment.data?.length,
-              itemBuilder: (_, index) {
-                return Container(
-                  padding: const EdgeInsets.all(8.0),
-                  child: CampaignCardViewForAppointments(
-                    vehicleType: appointmentController
-                        .appointment.data![index].vehicleNumber
-                        .toString(),
-                    imgUrl: "assets/images/appointment_two.png",
-                    appointmentId: appointmentController
-                        .appointment.data![index].id
-                        .toString(),
-                    serviceType: appointmentController
-                        .appointment.data![index].upgradeTypeName!,
-                    //distance: "85000km",
-                    time: appointmentController.appointment.data![index].date!,
-                    status:
-                        appointmentController.appointment.data![index].status!,
-                  ),
-                );
-              }),
+        appBar: AppBar(
+          backgroundColor: Constants.appColorAmber,
+          elevation: 0,
+          title: Text("Your Appointments"),
+          // leading: IconButton(
+          //     onPressed: () {
+          //       print("notification");
+          //     },
+          //     icon: Icon(
+          //       Icons.view_headline,
+          //       color: Constants.appColorAmber,
+          //     )),
+          // actions: [],
         ),
-        /*Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        drawer: DrawerWidget(),
+        body: Column(
           children: [
-
-            Container(
-              padding: const EdgeInsets.all(8.0),
-              child: GestureDetector(
-                onTap: (){
-                  print("printed gesture detecture");
-                },
-                child: CampaignCardViewForAppointments(
-                  vehicleType: "Toyota Vitz 2015",
-                  imgUrl: "assets/images/appointment_two.png",
-                  vehicleNo: "DP-1997",
-                  serviceType: "Interior Cleaning",
-                  //distance: "85000km",
-                  time: "2022/03/02",
-                ),
+            SingleChildScrollView(
+              child: SizedBox(
+                height: 700,
+                child: ListView.builder(
+                    itemCount: appointmentController.appointment.data?.length,
+                    itemBuilder: (_, index) {
+                      return Container(
+                        padding: const EdgeInsets.all(8.0),
+                        child: CampaignCardViewForAppointments(
+                          vehicleType: appointmentController
+                              .appointment.data![index].vehicleNumber
+                              .toString(),
+                          imgUrl: "assets/images/appointment_two.png",
+                          appointmentId: appointmentController
+                              .appointment.data![index].id
+                              .toString(),
+                          serviceType: appointmentController
+                              .appointment.data![index].upgradeTypeName!,
+                          //distance: "85000km",
+                          time: appointmentController
+                              .appointment.data![index].date!,
+                          status: appointmentController
+                              .appointment.data![index].status!,
+                        ),
+                      );
+                    }),
               ),
             ),
-
-
-
-            Container(
-              padding: const EdgeInsets.all(8.0),
-              child: GestureDetector(
-                onTap: (){
-                  print("printed gesture detecture");
-                },
-                child: CampaignCardViewForAppointments(
-                  vehicleType: "Toyota Vitz 2015",
-                  imgUrl: "assets/images/appointment_two.png",
-                  vehicleNo: "DP-1997",
-                  serviceType: "Interior Cleaning",
-                  time: "2022/03/02",
-                ),
-              ),
-            ),
-
-
           ],
-        ),*/
-      ),
-    );
+        ));
   }
 }
