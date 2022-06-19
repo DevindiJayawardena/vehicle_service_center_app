@@ -18,14 +18,6 @@ class ServiceHistoryController extends GetxController {
   var serviceHistory = ServiceHistory().obs;
   final userBox = GetStorage('userBox');
 
-  @override
-  void onInit() {
-    var token = userBox.read('token');
-    var id = userBox.read('id');
-    //vehicleHistory(token, id);
-    super.onInit();
-  }
-
   void getInitHistory() async {
     var token = userBox.read('token');
     var id = userBox.read('id');
@@ -34,16 +26,11 @@ class ServiceHistoryController extends GetxController {
         CustomDialogBox.buildDialogBox();
         var response = await ApiService().getCustomerVehiclesApi(token, "$id");
         //Get.back();
-        print("car list--------------------->");
-        print(response.body);
         if (response.statusCode == 200) {
           Map<String, dynamic> decodedData = jsonDecode(response.body);
 
           if (decodedData['success']) {
-            print("---------------------------->this hit");
-            print("---------------------------->$decodedData");
             vehicles = Vehicles.fromJson(decodedData);
-            if (vehicles.data!.isNotEmpty) {}
             vehicleInitialHistory(token, vehicles.data![0].id.toString());
           } else {
             CustomSnackBar.buildSnackBar(
@@ -78,17 +65,18 @@ class ServiceHistoryController extends GetxController {
         var response = await ApiService()
             .getVehicleHistoryById(token: token, vehicleNo: vehicleId);
         Get.back();
+
         if (response.statusCode == 200) {
           Map<String, dynamic> decodedData = jsonDecode(response.body);
+
           var historydata = ServiceHistory.fromJson(decodedData);
 
           if (decodedData['success']) {
             serviceHistory.update((history) {
-              history = historydata;
-            });
-            serviceHistory.value.data!.forEach((element) {
-              print("after set");
-              print(element.vehicleNumber);
+              //history = historydata;
+              serviceHistory.value = historydata;
+              print("------------------>his2");
+              print(serviceHistory.value.data![0].vehicleNumber);
             });
           } else {
             CustomSnackBar.buildSnackBar(
@@ -110,50 +98,11 @@ class ServiceHistoryController extends GetxController {
       }
     } catch (e) {
       Get.back();
+
       CustomSnackBar.buildSnackBar(
           title: "Alert".tr, message: "Something went wrong".tr);
     }
   }
-
-  /*void vehicleHistory(String token, String userId) async {
-    try {
-      if (networkController.connectionStatus.value != -1) {
-        //CustomDialogBox.buildDialogBox();
-        var response = await ApiService().getCustomerVehiclesApi(token, userId);
-        //Get.back();
-        print("car list--------------------->");
-        print(response.body);
-        if (response.statusCode == 200) {
-          Map<String, dynamic> decodedData = jsonDecode(response.body);
-
-          if (decodedData['success']) {
-            vehicles = Vehicles.fromJson(decodedData);
-            if (vehicles.data!.isNotEmpty)
-              vehicleInitialHistory(token, vehicles.data![0].id.toString());
-          } else {
-            CustomSnackBar.buildSnackBar(
-                title: "Alert",
-                message: decodedData['message'],
-                bgColor: AppColors.appColorBlack);
-          }
-        } else {
-          CustomSnackBar.buildSnackBar(
-              title: "Alert",
-              message: "Invalid Response",
-              bgColor: AppColors.appColorBlack);
-        }
-      } else {
-        CustomSnackBar.buildSnackBar(
-            title: "Connection Error",
-            message: "Please Check your Internet",
-            bgColor: AppColors.appColorBlack);
-      }
-    } catch (e) {
-      Get.back();
-      CustomSnackBar.buildSnackBar(
-          title: "Alert", message: "Something went wrong");
-    }
-  }*/
 
   void vehicleInitialHistory(String token, String initVehicleId) async {
     try {
@@ -162,15 +111,14 @@ class ServiceHistoryController extends GetxController {
         var response = await ApiService()
             .getServiceHistoryApi(token: token, vehicleId: initVehicleId);
         Get.back();
-        print("init history");
-        print(initVehicleId);
-        print(response.body);
+
         if (response.statusCode == 200) {
           Map<String, dynamic> decodedData = jsonDecode(response.body);
 
           if (decodedData['success']) {
             serviceHistory.value = ServiceHistory.fromJson(decodedData);
-            print("initial history $decodedData");
+            print("history init vehicle no");
+            print(serviceHistory.value.data![0].vehicleNumber);
             Get.to(() => ViewServiceHistoryScreen());
           } else {
             CustomSnackBar.buildSnackBar(

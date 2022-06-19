@@ -19,7 +19,7 @@ class Data {
   int? isPaid;
   String? paymentMethod;
   int? discount;
-  int? rating;
+  dynamic rating;
   int? appointmentId;
   int? employeeId;
   String? createdAt;

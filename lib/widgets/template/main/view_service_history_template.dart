@@ -60,47 +60,12 @@ class _ViewServiceHistoryTemplateState
               hintText: vehicleIdList[0],
               onSelected: (vehicleNo) {
                 selectedVehicleNo = vehicleNo;
-                //print(selectedServiceType);
+                print("selected vehi");
+                print(selectedVehicleNo);
                 serviceHistoryController
                     .getSingleVehicleHistory(selectedVehicleNo);
               },
-            )
-                /*Container(
-                  width: 360,
-                  padding: EdgeInsets.symmetric(horizontal: 50),
-                  child: DropdownButton<String>(
-                    hint: selectedVehicleNo.isEmpty
-                        ? Text(vehicleIdList[0])
-                        : Text(
-                            selectedVehicleNo,
-                            style: TextStyle(
-                                color: Constants.appColorAmberMoreDark),
-                          ),
-                    isExpanded: true,
-                    iconSize: 30.0,
-                    style: TextStyle(color: Constants.appColorAmberMoreDark),
-                    items: vehicleIdList.map(
-                      (val) {
-                        return DropdownMenuItem<String>(
-                          value: val,
-                          child: Text(val),
-                        );
-                      },
-                    ).toList(),
-                    onChanged: (val) {
-                      setState(
-                        () {
-                          selectedVehicleNo = val!;
-                          print("---------------->");
-                          print(selectedVehicleNo);
-                        },
-                      );
-
-                      */ /*serviceHistoryController
-                          .getSingleVehicleHistory(selectedVehicleNo);*/ /*
-                    },
-                  )),*/
-                ),
+            )),
             SizedBox(
               height: 30,
             ),
@@ -111,7 +76,7 @@ class _ViewServiceHistoryTemplateState
                     itemCount: serviceHistoryController
                         .serviceHistory.value.data?.length,
                     itemBuilder: (_, index) {
-                      // print("---------------------------> rebuilt");
+                      print("---------------------------> rebuilt");
                       /* print(serviceHistoryController
                           .serviceHistory.value.data![index].vehicleNumber!);*/
                       return Padding(
