@@ -75,8 +75,6 @@ class ServiceHistoryController extends GetxController {
             serviceHistory.update((history) {
               //history = historydata;
               serviceHistory.value = historydata;
-              print("------------------>his2");
-              print(serviceHistory.value.data![0].vehicleNumber);
             });
           } else {
             CustomSnackBar.buildSnackBar(

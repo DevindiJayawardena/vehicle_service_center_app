@@ -76,9 +76,6 @@ class _ViewServiceHistoryTemplateState
                     itemCount: serviceHistoryController
                         .serviceHistory.value.data?.length,
                     itemBuilder: (_, index) {
-                      print("---------------------------> rebuilt");
-                      /* print(serviceHistoryController
-                          .serviceHistory.value.data![index].vehicleNumber!);*/
                       return Padding(
                         padding: EdgeInsets.all(12),
                         child: CampaignCardViewForServiceHistory(

@@ -102,7 +102,7 @@ class _SellingVehicleDetailsTemplateState
 
             Center(
               child: Text(
-                'Rs. 5,590,000',
+                'Rs ${widget.vehicleData.price}',
                 style: TextStyle(
                   color: Constants.appColorAmberMoreDark,
                   fontWeight: FontWeight.bold,
@@ -121,13 +121,13 @@ class _SellingVehicleDetailsTemplateState
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Brand : Honda',
+                    'Brand : ${widget.vehicleData.brand}',
                   ),
                   SizedBox(
                     width: 40,
                   ),
                   Text(
-                    'Model : Civic',
+                    'Model : ${widget.vehicleData.model}',
                   ),
                 ],
               ),
@@ -143,13 +143,13 @@ class _SellingVehicleDetailsTemplateState
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Y.O.M : 2007',
+                    'Y.O.M : ${widget.vehicleData.manufacturedYear}',
                   ),
                   SizedBox(
                     width: 40,
                   ),
                   Text(
-                    'Condition : Used',
+                    'Condition : ${widget.vehicleData.vehicleCondition}',
                   ),
                 ],
               ),
@@ -161,7 +161,7 @@ class _SellingVehicleDetailsTemplateState
 
             Center(
               child: Text(
-                'Transmission : Automation',
+                'Transmission : ${widget.vehicleData.transmission}',
               ),
             ),
 
@@ -171,7 +171,7 @@ class _SellingVehicleDetailsTemplateState
 
             Center(
               child: Text(
-                'Fuel Type : Petrol',
+                'Fuel Type : ${widget.vehicleData.fuelType}',
               ),
             ),
 
@@ -181,7 +181,7 @@ class _SellingVehicleDetailsTemplateState
 
             Center(
               child: Text(
-                'Engine Capacity : 800 cc',
+                'Engine Capacity : ${widget.vehicleData.engineCapacity}',
               ),
             ),
 
@@ -191,7 +191,7 @@ class _SellingVehicleDetailsTemplateState
 
             Center(
               child: Text(
-                'Mileage : 8500 km',
+                'Mileage : ${widget.vehicleData.mileage}',
               ),
             ),
 
@@ -201,7 +201,7 @@ class _SellingVehicleDetailsTemplateState
 
             Center(
               child: Text(
-                'Seller Name : Devindi Jayawardena',
+                'Seller Name : ${widget.vehicleData.sellerName}',
                 style: TextStyle(
                   fontSize: 17,
                   fontWeight: FontWeight.bold,
