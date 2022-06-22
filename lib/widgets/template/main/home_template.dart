@@ -371,7 +371,7 @@ class _HomeTemplateState extends State<HomeTemplate> {
                                       ),
                                       onPressed: () {
                                         vehicleSaleController
-                                            .viewCustomerVehicleForSale();
+                                            .viewCustomerNoteSaleVehicle();
 
                                         /*Navigator.of(context)
                                           .push(MaterialPageRoute(

@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:vehicle_service_center_app/controller/network_controller.dart';
-import 'package:vehicle_service_center_app/model/custmer_vehicle.dart';
+import 'package:vehicle_service_center_app/model/customer_not_sale_vehicle.dart';
 import 'package:vehicle_service_center_app/screens/main/home_screen.dart';
 
 import '../api_service/api_service.dart';
@@ -17,33 +17,34 @@ import '../const/custom_snack_bar.dart';
 import '../screens/main/sell_your_vehicle_screen.dart';
 
 class VehicleSaleController extends GetxController {
-  CustomerVehicle customerVehicle = CustomerVehicle();
+  CustomerNotSaledVehicle customerVehicle = CustomerNotSaledVehicle();
 
   NetworkController networkController = Get.find<NetworkController>();
 
   final userBox = GetStorage('userBox');
 
-  void viewCustomerVehicleForSale() async {
+  void viewCustomerNoteSaleVehicle() async {
     var token = userBox.read('token');
     var id = userBox.read('id');
     try {
       if (networkController.connectionStatus.value != -1) {
         CustomDialogBox.buildDialogBox();
-        var response =
-            await ApiService().viewCustomerVehiclesApi(token: token, id: "$id");
+        var response = await ApiService()
+            .viewCustomerNotSaleVehiclesApi(token: token, id: "$id");
         Get.back();
         print(response.body);
         if (response.statusCode == 200) {
           Map<String, dynamic> decodedData = jsonDecode(response.body);
-
+          print("----------------->>>> sale");
+          print(decodedData);
           if (decodedData['success']) {
             print("----------------->>>> success");
-            customerVehicle = CustomerVehicle.fromJson(decodedData);
+            customerVehicle = CustomerNotSaledVehicle.fromJson(decodedData);
             Get.to(() => SellYourVehicleScreen(), arguments: [customerVehicle]);
           } else {
             CustomSnackBar.buildSnackBar(
                 title: "Alert",
-                message: "No Histories available",
+                message: "No vehicle to Sale",
                 bgColor: AppColors.appColorBlack);
           }
         } else {
@@ -83,7 +84,6 @@ class VehicleSaleController extends GetxController {
     required String contactNo,
   }) async {
     var token = userBox.read('token');
-    var id = userBox.read('id');
     String base64string = "";
     try {
       if (networkController.connectionStatus.value != -1) {

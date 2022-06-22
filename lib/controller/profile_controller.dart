@@ -30,7 +30,7 @@ class ProfileController extends GetxController {
         CustomDialogBox.buildDialogBox();
         var response = await ApiService().updateCustomerProfileApi(
             token: token,
-            customerId: id,
+            customerId: "${id}",
             fName: fName,
             lName: lName,
             email: email,

@@ -197,6 +197,16 @@ class ApiService {
     return response;
   }
 
+  Future<http.Response> viewCustomerNotSaleVehiclesApi(
+      {required String token, required String id}) async {
+    var header = {"Accept": "application/json", "Authorization": token};
+
+    var url = Uri.https(
+        API_BASE_URL, "/vehicle/getNotAdvertisedVehiclesByCustomerId/$id");
+    var response = await http.get(url, headers: header);
+    return response;
+  }
+
   Future<http.Response> addNewVehicle(
       {required String token,
       required String vehicleType,
