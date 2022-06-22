@@ -39,6 +39,9 @@ class _HomeTemplateState extends State<HomeTemplate> {
     final userBox = GetStorage('userBox');
     var token = userBox.read('token');
     var id = userBox.read('id');
+    print("userId---------->$id");
+    print("userId---------->$token");
+
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
